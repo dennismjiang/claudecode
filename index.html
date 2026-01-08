@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>James Smith - Product Manager</title>
+    <title>James Smith - Product Leader & Innovator</title>
     <style>
         * {
             margin: 0;
@@ -11,213 +11,817 @@
             box-sizing: border-box;
         }
 
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background: #f5f5f5;
+            background: #0f0f0f;
             color: #333;
             line-height: 1.6;
+            overflow-x: hidden;
         }
 
         .container {
-            max-width: 900px;
+            max-width: 1200px;
             margin: 0 auto;
-            background: white;
-            min-height: 100vh;
+            background: #ffffff;
         }
 
+        /* Hero Section */
         header {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
-            padding: 4rem 2rem;
+            padding: 8rem 2rem 6rem;
             text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="100" fill="none"/><circle cx="50" cy="50" r="2" fill="white" opacity="0.1"/></svg>');
+            opacity: 0.3;
+            animation: float 20s linear infinite;
+        }
+
+        @keyframes float {
+            from { transform: translateY(0) translateX(0); }
+            to { transform: translateY(-100px) translateX(100px); }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
         }
 
         header h1 {
-            font-size: 3rem;
-            margin-bottom: 0.5rem;
-            font-weight: 600;
+            font-size: 4.5rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+            letter-spacing: -2px;
+            animation: fadeInUp 1s ease-out;
         }
 
-        header p {
-            font-size: 1.3rem;
+        header .tagline {
+            font-size: 1.5rem;
             opacity: 0.95;
+            margin-bottom: 0.5rem;
+            animation: fadeInUp 1s ease-out 0.2s both;
         }
 
-        .content {
+        header .subtitle {
+            font-size: 1.1rem;
+            opacity: 0.85;
+            animation: fadeInUp 1s ease-out 0.4s both;
+        }
+
+        .cta-buttons {
+            margin-top: 2rem;
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            animation: fadeInUp 1s ease-out 0.6s both;
+        }
+
+        .btn {
+            padding: 0.9rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: white;
+            color: #667eea;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+        }
+
+        .btn-secondary {
+            background: rgba(255,255,255,0.1);
+            color: white;
+            border: 2px solid white;
+            backdrop-filter: blur(10px);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255,255,255,0.2);
+            transform: translateY(-2px);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Stats Section */
+        .stats {
+            background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+            color: white;
             padding: 3rem 2rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            text-align: center;
+        }
+
+        .stat-item {
+            animation: fadeIn 1s ease-out;
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 1rem;
+            opacity: 0.9;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.9rem;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Content Sections */
+        .content {
+            padding: 4rem 2rem;
+            max-width: 1000px;
+            margin: 0 auto;
         }
 
         section {
-            margin-bottom: 3rem;
+            margin-bottom: 5rem;
+            opacity: 0;
+            animation: fadeInUp 0.8s ease-out forwards;
         }
 
+        section:nth-child(1) { animation-delay: 0.1s; }
+        section:nth-child(2) { animation-delay: 0.2s; }
+        section:nth-child(3) { animation-delay: 0.3s; }
+        section:nth-child(4) { animation-delay: 0.4s; }
+        section:nth-child(5) { animation-delay: 0.5s; }
+
         h2 {
-            font-size: 1.8rem;
+            font-size: 2.5rem;
             color: #667eea;
-            margin-bottom: 1rem;
-            padding-bottom: 0.5rem;
-            border-bottom: 2px solid #f0f0f0;
+            margin-bottom: 2rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            border-radius: 2px;
+        }
+
+        /* About Section */
+        .about {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
         }
 
         .about p {
-            font-size: 1.1rem;
+            font-size: 1.15rem;
             color: #555;
-            margin-bottom: 1rem;
-        }
-
-        .work-item {
+            line-height: 1.8;
             margin-bottom: 1.5rem;
         }
 
-        .work-item h3 {
+        .highlight {
+            background: linear-gradient(135deg, #667eea15 0%, #764ba215 100%);
+            padding: 2rem;
+            border-radius: 12px;
+            border-left: 4px solid #667eea;
+            margin-top: 2rem;
+        }
+
+        .highlight p {
+            font-size: 1.2rem;
+            font-style: italic;
+            color: #333;
+            margin: 0;
+        }
+
+        /* Skills Section */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .skill-category {
+            background: #f8f9fa;
+            padding: 2rem;
+            border-radius: 12px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .skill-category:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.2);
+        }
+
+        .skill-category h3 {
             font-size: 1.3rem;
             color: #333;
-            margin-bottom: 0.3rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .skill-icon {
+            font-size: 1.5rem;
+        }
+
+        .skill-item {
+            margin-bottom: 1rem;
+        }
+
+        .skill-name {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: #555;
+        }
+
+        .skill-bar {
+            height: 8px;
+            background: #e0e0e0;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .skill-progress {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            border-radius: 10px;
+            transition: width 1s ease-out;
+        }
+
+        /* Experience Section */
+        .timeline {
+            position: relative;
+            padding-left: 2rem;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: linear-gradient(180deg, #667eea, #764ba2);
+        }
+
+        .work-item {
+            margin-bottom: 3rem;
+            position: relative;
+            background: #f8f9fa;
+            padding: 2rem;
+            border-radius: 12px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .work-item:hover {
+            transform: translateX(10px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .work-item::before {
+            content: '';
+            position: absolute;
+            left: -2.6rem;
+            top: 2rem;
+            width: 15px;
+            height: 15px;
+            background: #667eea;
+            border-radius: 50%;
+            border: 3px solid white;
+            box-shadow: 0 0 0 3px #667eea;
+        }
+
+        .work-item h3 {
+            font-size: 1.5rem;
+            color: #333;
+            margin-bottom: 0.5rem;
         }
 
         .work-item .company {
             color: #667eea;
-            font-weight: 500;
+            font-weight: 600;
+            font-size: 1.2rem;
+            margin-bottom: 0.3rem;
         }
 
         .work-item .date {
             color: #999;
-            font-size: 0.9rem;
-            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+            display: inline-block;
+            background: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
         }
 
         .work-item p {
             color: #666;
+            line-height: 1.7;
         }
 
+        .work-item ul {
+            margin-top: 1rem;
+            padding-left: 1.5rem;
+            color: #666;
+        }
+
+        .work-item li {
+            margin-bottom: 0.5rem;
+        }
+
+        /* Featured Work */
+        .featured-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .featured-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 2.5rem;
+            border-radius: 16px;
+            color: white;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+
+        .featured-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(102, 126, 234, 0.4);
+        }
+
+        .featured-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .featured-card p {
+            opacity: 0.95;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .featured-tag {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            margin-right: 0.5rem;
+            margin-top: 0.5rem;
+        }
+
+        /* Hobbies Section */
         .hobbies {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1.5rem;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
         }
 
         .hobby-card {
-            background: #f8f9fa;
-            padding: 1.5rem;
-            border-radius: 8px;
-            border-left: 4px solid #667eea;
+            background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+            padding: 2rem;
+            border-radius: 16px;
+            border: 2px solid #f0f0f0;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hobby-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .hobby-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 35px rgba(102, 126, 234, 0.2);
+            border-color: #667eea;
+        }
+
+        .hobby-card:hover::before {
+            transform: scaleX(1);
         }
 
         .hobby-card h3 {
-            font-size: 1.2rem;
-            margin-bottom: 0.5rem;
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
             color: #333;
         }
 
         .hobby-card p {
             color: #666;
-            font-size: 0.95rem;
+            line-height: 1.7;
         }
 
+        /* Contact Section */
         .contact {
             text-align: center;
-            padding: 2rem;
-            background: #f8f9fa;
-            border-radius: 8px;
+            padding: 4rem 2rem;
+            background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.05);
+        }
+
+        .contact h2 {
+            margin-bottom: 1.5rem;
+        }
+
+        .contact p {
+            font-size: 1.2rem;
+            color: #666;
+            margin-bottom: 2rem;
         }
 
         .contact-links {
             display: flex;
             justify-content: center;
-            gap: 2rem;
-            margin-top: 1rem;
+            gap: 1.5rem;
+            margin-top: 2rem;
             flex-wrap: wrap;
         }
 
         .contact-links a {
-            color: #667eea;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: white;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            padding: 1rem 2rem;
+            border-radius: 50px;
             text-decoration: none;
-            font-size: 1.1rem;
-            transition: color 0.3s;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
         }
 
         .contact-links a:hover {
-            color: #764ba2;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
         }
 
+        /* Footer */
         footer {
             text-align: center;
-            padding: 2rem;
+            padding: 3rem 2rem;
+            background: #0f0f0f;
             color: #999;
-            font-size: 0.9rem;
+        }
+
+        footer p {
+            font-size: 0.95rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 3rem;
+            }
+
+            header .tagline {
+                font-size: 1.2rem;
+            }
+
+            .stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            h2 {
+                font-size: 2rem;
+            }
+
+            .timeline {
+                padding-left: 1.5rem;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
         <header>
-            <h1>James Smith</h1>
-            <p>Product Manager | San Francisco, CA</p>
+            <div class="hero-content">
+                <h1>James Smith</h1>
+                <p class="tagline">Product Leader & Innovation Architect</p>
+                <p class="subtitle">Building the future of AI-powered productivity | San Francisco, CA</p>
+                <div class="cta-buttons">
+                    <a href="#contact" class="btn btn-primary">Get In Touch</a>
+                    <a href="#work" class="btn btn-secondary">View My Work</a>
+                </div>
+            </div>
         </header>
 
+        <div class="stats">
+            <div class="stat-item">
+                <span class="stat-number">500K+</span>
+                <span class="stat-label">Active Users</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">$12M</span>
+                <span class="stat-label">Revenue Generated</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">25+</span>
+                <span class="stat-label">Products Shipped</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">8</span>
+                <span class="stat-label">Years Experience</span>
+            </div>
+        </div>
+
         <div class="content">
-            <section class="about">
-                <h2>About</h2>
-                <p>
-                    Hey! I'm James, a product manager based in San Francisco with a passion for building products that make people's lives easier.
-                    I currently work on AI-powered tools and love being at the intersection of technology and user experience.
-                </p>
-                <p>
-                    When I'm not thinking about product roadmaps, you'll find me exploring the Bay Area, tinkering with side projects, or planning my next adventure.
-                </p>
+            <section class="about" id="about">
+                <div>
+                    <h2>About Me</h2>
+                    <p>
+                        Hey! I'm James, a product leader based in San Francisco who's passionate about building products that genuinely improve people's lives.
+                        Currently, I'm leading product development for AI-powered automation tools at TechFlow AI, where we're reimagining how teams work together.
+                    </p>
+                    <p>
+                        I've spent the last 8 years at the intersection of technology and human experience, shipping products used by over half a million people worldwide.
+                        My approach combines data-driven decision making with deep empathy for users—because the best products don't just solve problems, they delight.
+                    </p>
+                    <p>
+                        Before diving into product management, I started as a software engineer, which gives me a unique perspective when working with technical teams.
+                        I speak fluent "engineer" and "designer," which helps me bridge gaps and build alignment around our vision.
+                    </p>
+                    <div class="highlight">
+                        <p>"The best products feel inevitable in hindsight. Getting there requires equal parts vision, execution, and the humility to learn from users."</p>
+                    </div>
+                </div>
             </section>
 
-            <section class="work">
+            <section class="skills" id="skills">
+                <h2>Expertise</h2>
+                <div class="skills-grid">
+                    <div class="skill-category">
+                        <h3><span class="skill-icon">🎯</span> Product Strategy</h3>
+                        <div class="skill-item">
+                            <div class="skill-name">
+                                <span>Product Vision & Roadmapping</span>
+                                <span>95%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 95%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-name">
+                                <span>User Research & Analytics</span>
+                                <span>90%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 90%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-name">
+                                <span>Go-to-Market Strategy</span>
+                                <span>85%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 85%"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="skill-category">
+                        <h3><span class="skill-icon">💻</span> Technical Skills</h3>
+                        <div class="skill-item">
+                            <div class="skill-name">
+                                <span>AI/ML Product Development</span>
+                                <span>90%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 90%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-name">
+                                <span>APIs & System Design</span>
+                                <span>80%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 80%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-name">
+                                <span>SQL & Data Analysis</span>
+                                <span>85%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 85%"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="skill-category">
+                        <h3><span class="skill-icon">👥</span> Leadership</h3>
+                        <div class="skill-item">
+                            <div class="skill-name">
+                                <span>Cross-Functional Collaboration</span>
+                                <span>95%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 95%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-name">
+                                <span>Stakeholder Management</span>
+                                <span>90%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 90%"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-name">
+                                <span>Agile & Scrum</span>
+                                <span>88%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 88%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="work" id="work">
                 <h2>Experience</h2>
-                <div class="work-item">
-                    <h3>Senior Product Manager</h3>
-                    <div class="company">TechFlow AI</div>
-                    <div class="date">2022 - Present</div>
-                    <p>Leading product development for AI-powered workflow automation tools. Shipped features used by 100k+ users.</p>
-                </div>
-                <div class="work-item">
-                    <h3>Product Manager</h3>
-                    <div class="company">DataCloud Solutions</div>
-                    <div class="date">2019 - 2022</div>
-                    <p>Managed cloud infrastructure products, working closely with engineering teams to deliver scalable solutions.</p>
+                <div class="timeline">
+                    <div class="work-item">
+                        <h3>Senior Product Manager</h3>
+                        <div class="company">TechFlow AI</div>
+                        <span class="date">2022 - Present</span>
+                        <p>Leading product strategy for AI-powered workflow automation platform serving 500K+ users across 120 countries.</p>
+                        <ul>
+                            <li>Shipped AI assistant feature that increased user productivity by 40%, generating $8M in ARR</li>
+                            <li>Led redesign of core UX that improved NPS from 42 to 68 in 6 months</li>
+                            <li>Built and scaled product team from 3 to 12 people across engineering, design, and analytics</li>
+                            <li>Established data-driven product development framework adopted company-wide</li>
+                        </ul>
+                    </div>
+                    <div class="work-item">
+                        <h3>Product Manager</h3>
+                        <div class="company">DataCloud Solutions</div>
+                        <span class="date">2019 - 2022</span>
+                        <p>Managed cloud infrastructure products and developer tools, collaborating with enterprise customers including Fortune 500 companies.</p>
+                        <ul>
+                            <li>Launched API platform that grew to 50K developers in first year</li>
+                            <li>Reduced infrastructure costs by 35% while improving performance metrics</li>
+                            <li>Partnered with sales to close $4M in enterprise contracts</li>
+                        </ul>
+                    </div>
+                    <div class="work-item">
+                        <h3>Associate Product Manager</h3>
+                        <div class="company">StartupLabs (YC W19)</div>
+                        <span class="date">2018 - 2019</span>
+                        <p>First PM hire at early-stage Y Combinator startup. Helped grow from beta to 10K users and Series A funding.</p>
+                        <ul>
+                            <li>Defined product vision and roadmap from 0 to 1</li>
+                            <li>Conducted 100+ user interviews to validate product-market fit</li>
+                            <li>Shipped MVP in 3 months that led to Series A fundraise</li>
+                        </ul>
+                    </div>
                 </div>
             </section>
 
-            <section class="interests">
-                <h2>Hobbies & Interests</h2>
+            <section class="featured" id="featured">
+                <h2>Featured Work</h2>
+                <div class="featured-grid">
+                    <div class="featured-card">
+                        <h3>AI Writing Assistant</h3>
+                        <p>Architected and launched an AI-powered writing tool that helps teams collaborate 3x faster. Featured in TechCrunch and Product Hunt #1 Product of the Day.</p>
+                        <div>
+                            <span class="featured-tag">AI/ML</span>
+                            <span class="featured-tag">NLP</span>
+                            <span class="featured-tag">SaaS</span>
+                        </div>
+                    </div>
+                    <div class="featured-card">
+                        <h3>Developer API Platform</h3>
+                        <p>Built a comprehensive API platform from the ground up, now serving 50K+ developers with 99.99% uptime and industry-leading documentation.</p>
+                        <div>
+                            <span class="featured-tag">APIs</span>
+                            <span class="featured-tag">DevTools</span>
+                            <span class="featured-tag">Infrastructure</span>
+                        </div>
+                    </div>
+                    <div class="featured-card">
+                        <h3>Mobile App Redesign</h3>
+                        <p>Led complete mobile app overhaul that increased daily active users by 150% and improved App Store rating from 3.2 to 4.7 stars.</p>
+                        <div>
+                            <span class="featured-tag">Mobile</span>
+                            <span class="featured-tag">UX Design</span>
+                            <span class="featured-tag">iOS/Android</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="interests" id="interests">
+                <h2>Beyond Work</h2>
                 <div class="hobbies">
                     <div class="hobby-card">
                         <h3>🎸 Music Production</h3>
-                        <p>Making electronic music in my home studio. Always learning new synthesis techniques.</p>
+                        <p>I produce electronic music under the alias "Midnight Architect." My tracks have been featured on Spotify editorial playlists and I've performed at local SF venues. Always exploring new synthesis techniques and sound design.</p>
                     </div>
                     <div class="hobby-card">
-                        <h3>🏔️ Hiking</h3>
-                        <p>Exploring trails around the Bay Area. Recent favorite: Mission Peak at sunrise.</p>
+                        <h3>🏔️ Hiking & Backpacking</h3>
+                        <p>Completed the John Muir Trail in 2024 and exploring California's diverse landscapes. Recent favorite: watching sunrise from Mission Peak. Currently training for a Patagonia trek.</p>
                     </div>
                     <div class="hobby-card">
                         <h3>📸 Photography</h3>
-                        <p>Street and landscape photography. Currently shooting on a Fujifilm X-T4.</p>
+                        <p>Street and landscape photographer shooting on Fujifilm X-T4. My work has been featured in local galleries and I occasionally shoot portraits for fellow founders. Love capturing the energy of SF's neighborhoods.</p>
                     </div>
                     <div class="hobby-card">
                         <h3>☕ Coffee Roasting</h3>
-                        <p>Home coffee roasting enthusiast. Ethiopian Yirgacheffe is my current obsession.</p>
+                        <p>Home coffee roasting enthusiast with a small setup in my apartment. Currently obsessed with Ethiopian Yirgacheffe and experimenting with different roast profiles. Always happy to geek out about coffee science.</p>
+                    </div>
+                    <div class="hobby-card">
+                        <h3>📚 Reading & Writing</h3>
+                        <p>Voracious reader of sci-fi, philosophy, and product literature. I write occasional essays about product thinking and technology on Medium, where I have 5K+ followers.</p>
+                    </div>
+                    <div class="hobby-card">
+                        <h3>🚴 Cycling</h3>
+                        <p>Road cycling through Bay Area routes on weekends. Completed the Marin Century last year and training for the Big Sur Coast ride. Nothing clears my head like a long ride along Highway 1.</p>
                     </div>
                 </div>
             </section>
 
-            <section class="contact">
-                <h2>Get In Touch</h2>
+            <section class="contact" id="contact">
+                <h2>Let's Connect</h2>
+                <p>Always happy to chat about product, technology, or grab coffee in SF!</p>
                 <div class="contact-links">
-                    <a href="mailto:james@example.com">Email</a>
-                    <a href="https://linkedin.com/in/jamessmith">LinkedIn</a>
-                    <a href="https://twitter.com/jamessmith">Twitter</a>
-                    <a href="https://github.com/jamessmith">GitHub</a>
+                    <a href="mailto:james@example.com">📧 Email</a>
+                    <a href="https://linkedin.com/in/jamessmith">💼 LinkedIn</a>
+                    <a href="https://twitter.com/jamessmith">🐦 Twitter</a>
+                    <a href="https://github.com/jamessmith">💻 GitHub</a>
                 </div>
             </section>
         </div>
 
         <footer>
-            <p>&copy; 2026 James Smith. Built with curiosity and caffeine.</p>
+            <p>&copy; 2026 James Smith. Designed with intention, built with passion.</p>
+            <p style="margin-top: 0.5rem; opacity: 0.7;">San Francisco, CA | Product Leader & Innovator</p>
         </footer>
     </div>
 </body>
