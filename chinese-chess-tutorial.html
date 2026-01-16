@@ -393,14 +393,83 @@
         .hidden {
             display: none;
         }
+
+        /* Language Toggle */
+        .lang-toggle {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 8px 15px;
+            border-radius: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .lang-toggle span {
+            font-size: 0.9rem;
+            color: #a0a0a0;
+            transition: color 0.3s;
+        }
+
+        .lang-toggle span.active {
+            color: #ff6b6b;
+            font-weight: 600;
+        }
+
+        .toggle-switch {
+            width: 50px;
+            height: 26px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 13px;
+            position: relative;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .toggle-switch::after {
+            content: '';
+            position: absolute;
+            width: 22px;
+            height: 22px;
+            background: linear-gradient(135deg, #e94560, #ff6b6b);
+            border-radius: 50%;
+            top: 2px;
+            left: 2px;
+            transition: transform 0.3s;
+        }
+
+        .toggle-switch.zh::after {
+            transform: translateX(24px);
+        }
+
+        .container {
+            position: relative;
+        }
+
+        @media (max-width: 768px) {
+            .lang-toggle {
+                position: static;
+                justify-content: center;
+                margin-bottom: 20px;
+            }
+        }
     </style>
 </head>
 <body>
     <div class="container">
+        <div class="lang-toggle">
+            <span id="langEn" class="active">EN</span>
+            <div class="toggle-switch" id="langToggle"></div>
+            <span id="langZh">中文</span>
+        </div>
+
         <header>
             <div class="chinese-title">象棋教程</div>
-            <h1>Learn Chinese Chess</h1>
-            <p>An interactive guide to mastering Xiangqi</p>
+            <h1 id="mainTitle">Learn Chinese Chess</h1>
+            <p id="subtitle">An interactive guide to mastering Xiangqi</p>
         </header>
 
         <div class="progress-container">
@@ -436,78 +505,9 @@
         </div>
 
         <div class="quick-ref">
-            <h2>Quick Reference - All Pieces</h2>
-            <div class="piece-grid">
-                <div class="piece-card">
-                    <svg class="piece-icon" viewBox="0 0 50 50">
-                        <circle cx="25" cy="25" r="22" class="red-piece piece-circle"/>
-                        <text x="25" y="32" text-anchor="middle" font-size="20" class="red-text">帥</text>
-                    </svg>
-                    <div class="piece-info">
-                        <h4>General (帥/將)</h4>
-                        <p>Moves 1 space orthogonally, stays in palace</p>
-                    </div>
-                </div>
-                <div class="piece-card">
-                    <svg class="piece-icon" viewBox="0 0 50 50">
-                        <circle cx="25" cy="25" r="22" class="red-piece piece-circle"/>
-                        <text x="25" y="32" text-anchor="middle" font-size="20" class="red-text">仕</text>
-                    </svg>
-                    <div class="piece-info">
-                        <h4>Advisor (仕/士)</h4>
-                        <p>Moves 1 space diagonally, stays in palace</p>
-                    </div>
-                </div>
-                <div class="piece-card">
-                    <svg class="piece-icon" viewBox="0 0 50 50">
-                        <circle cx="25" cy="25" r="22" class="red-piece piece-circle"/>
-                        <text x="25" y="32" text-anchor="middle" font-size="20" class="red-text">相</text>
-                    </svg>
-                    <div class="piece-info">
-                        <h4>Elephant (相/象)</h4>
-                        <p>Moves 2 spaces diagonally, cannot cross river</p>
-                    </div>
-                </div>
-                <div class="piece-card">
-                    <svg class="piece-icon" viewBox="0 0 50 50">
-                        <circle cx="25" cy="25" r="22" class="red-piece piece-circle"/>
-                        <text x="25" y="32" text-anchor="middle" font-size="20" class="red-text">傌</text>
-                    </svg>
-                    <div class="piece-info">
-                        <h4>Horse (傌/馬)</h4>
-                        <p>L-shape move, can be blocked</p>
-                    </div>
-                </div>
-                <div class="piece-card">
-                    <svg class="piece-icon" viewBox="0 0 50 50">
-                        <circle cx="25" cy="25" r="22" class="red-piece piece-circle"/>
-                        <text x="25" y="32" text-anchor="middle" font-size="20" class="red-text">俥</text>
-                    </svg>
-                    <div class="piece-info">
-                        <h4>Chariot (俥/車)</h4>
-                        <p>Moves any distance orthogonally</p>
-                    </div>
-                </div>
-                <div class="piece-card">
-                    <svg class="piece-icon" viewBox="0 0 50 50">
-                        <circle cx="25" cy="25" r="22" class="red-piece piece-circle"/>
-                        <text x="25" y="32" text-anchor="middle" font-size="20" class="red-text">炮</text>
-                    </svg>
-                    <div class="piece-info">
-                        <h4>Cannon (炮/砲)</h4>
-                        <p>Moves orthogonally, jumps to capture</p>
-                    </div>
-                </div>
-                <div class="piece-card">
-                    <svg class="piece-icon" viewBox="0 0 50 50">
-                        <circle cx="25" cy="25" r="22" class="red-piece piece-circle"/>
-                        <text x="25" y="32" text-anchor="middle" font-size="20" class="red-text">兵</text>
-                    </svg>
-                    <div class="piece-info">
-                        <h4>Soldier (兵/卒)</h4>
-                        <p>Forward only, sideways after crossing river</p>
-                    </div>
-                </div>
+            <h2 id="quickRefTitle">Quick Reference - All Pieces</h2>
+            <div class="piece-grid" id="pieceGrid">
+                <!-- Generated by JavaScript -->
             </div>
         </div>
     </div>
@@ -1402,11 +1402,591 @@
             }
         ];
 
+        // Chinese translations for all lessons
+        const lessonsZh = [
+            // Lesson 0: Welcome
+            {
+                title: "欢迎",
+                content: `
+                    <h3>欢迎学习中国象棋！</h3>
+                    <p>你好！我很高兴能教你<span class="highlight">象棋</span>。这个古老的游戏已有上千年的历史，至今仍是世界上最受欢迎的棋类游戏之一。</p>
+                    <p>中国象棋与国际象棋有些相似——两军对垒，目标是将死对方的主帅（称为<span class="highlight">将/帅</span>）。但它有独特的特点：</p>
+                    <ul>
+                        <li><strong>楚河汉界</strong> - 影响棋子移动的边界</li>
+                        <li><strong>九宫格</strong> - 将帅和士只能在此区域活动</li>
+                        <li><strong>炮</strong> - 必须隔子才能吃子的独特棋子</li>
+                        <li><strong>棋子放在交叉点上</strong> - 不是在格子里！</li>
+                    </ul>
+                    <p>让我们开始学习这个美妙的游戏吧！</p>
+                `
+            },
+            // Lesson 1: The Board
+            {
+                title: "棋盘",
+                content: `
+                    <h3>认识棋盘</h3>
+                    <p>象棋棋盘是一个<span class="highlight">9×10</span>的格子。与国际象棋不同，象棋的棋子放在线的<span class="highlight">交叉点</span>上，而不是格子里。</p>
+                    <div class="diagram-container">
+                        <svg viewBox="0 0 400 440" width="400" height="440">
+                            <rect x="20" y="20" width="360" height="400" fill="#f5deb3" rx="5"/>
+                            <line x1="40" y1="40" x2="360" y2="40" stroke="#c4a35a" stroke-width="1.5"/>
+                            <line x1="40" y1="80" x2="360" y2="80" stroke="#c4a35a" stroke-width="1.5"/>
+                            <line x1="40" y1="120" x2="360" y2="120" stroke="#c4a35a" stroke-width="1.5"/>
+                            <line x1="40" y1="160" x2="360" y2="160" stroke="#c4a35a" stroke-width="1.5"/>
+                            <line x1="40" y1="200" x2="360" y2="200" stroke="#c4a35a" stroke-width="1.5"/>
+                            <line x1="40" y1="240" x2="360" y2="240" stroke="#c4a35a" stroke-width="1.5"/>
+                            <line x1="40" y1="280" x2="360" y2="280" stroke="#c4a35a" stroke-width="1.5"/>
+                            <line x1="40" y1="320" x2="360" y2="320" stroke="#c4a35a" stroke-width="1.5"/>
+                            <line x1="40" y1="360" x2="360" y2="360" stroke="#c4a35a" stroke-width="1.5"/>
+                            <line x1="40" y1="400" x2="360" y2="400" stroke="#c4a35a" stroke-width="1.5"/>
+                            <line x1="40" y1="40" x2="40" y2="400" stroke="#c4a35a" stroke-width="1.5"/>
+                            <line x1="360" y1="40" x2="360" y2="400" stroke="#c4a35a" stroke-width="1.5"/>
+                            <line x1="160" y1="40" x2="240" y2="120" stroke="#c4a35a" stroke-width="1"/>
+                            <line x1="240" y1="40" x2="160" y2="120" stroke="#c4a35a" stroke-width="1"/>
+                            <line x1="160" y1="320" x2="240" y2="400" stroke="#c4a35a" stroke-width="1"/>
+                            <line x1="240" y1="320" x2="160" y2="400" stroke="#c4a35a" stroke-width="1"/>
+                            <text x="100" y="225" fill="#4a7c59" font-size="18">楚 河</text>
+                            <text x="260" y="225" fill="#4a7c59" font-size="18">漢 界</text>
+                            <text x="200" y="15" text-anchor="middle" fill="#666" font-size="12">黑方</text>
+                            <text x="200" y="435" text-anchor="middle" fill="#666" font-size="12">红方</text>
+                            <rect x="158" y="38" width="84" height="84" fill="rgba(233, 69, 96, 0.1)" stroke="#e94560" stroke-width="2" stroke-dasharray="5,5"/>
+                            <rect x="158" y="318" width="84" height="84" fill="rgba(233, 69, 96, 0.1)" stroke="#e94560" stroke-width="2" stroke-dasharray="5,5"/>
+                        </svg>
+                        <div class="diagram-caption">象棋棋盘，中间是楚河汉界，红色虚线框是九宫格</div>
+                    </div>
+                    <p>棋盘的主要特点：</p>
+                    <ul>
+                        <li><strong>楚河汉界</strong> - 中间的空白区域，影响象和兵的移动</li>
+                        <li><strong>九宫格</strong> - 带斜线的3×3区域，将帅和士必须在此活动</li>
+                        <li><strong>90个交叉点</strong> - 棋子就放在这些点上！</li>
+                    </ul>
+                `
+            },
+            // Lesson 2: General
+            {
+                title: "将/帅",
+                content: `
+                    <h3>将/帅</h3>
+                    <p>将帅是<span class="highlight">最重要的棋子</span>，类似于国际象棋中的王。如果你的将帅被将死，你就输了！</p>
+                    <p>红方叫<span class="highlight">帅</span>，黑方叫<span class="highlight">将</span>。</p>
+                    <div class="diagram-container">
+                        <svg viewBox="0 0 200 200" width="200" height="200">
+                            <rect x="20" y="20" width="160" height="160" fill="#f5deb3" rx="5"/>
+                            <line x1="40" y1="40" x2="160" y2="40" stroke="#c4a35a" stroke-width="1.5"/>
+                            <line x1="40" y1="100" x2="160" y2="100" stroke="#c4a35a" stroke-width="1.5"/>
+                            <line x1="40" y1="160" x2="160" y2="160" stroke="#c4a35a" stroke-width="1.5"/>
+                            <line x1="40" y1="40" x2="40" y2="160" stroke="#c4a35a" stroke-width="1.5"/>
+                            <line x1="100" y1="40" x2="100" y2="160" stroke="#c4a35a" stroke-width="1.5"/>
+                            <line x1="160" y1="40" x2="160" y2="160" stroke="#c4a35a" stroke-width="1.5"/>
+                            <circle cx="100" cy="40" r="12" fill="rgba(76, 175, 80, 0.4)" stroke="#4caf50" stroke-width="2"/>
+                            <circle cx="40" cy="100" r="12" fill="rgba(76, 175, 80, 0.4)" stroke="#4caf50" stroke-width="2"/>
+                            <circle cx="160" cy="100" r="12" fill="rgba(76, 175, 80, 0.4)" stroke="#4caf50" stroke-width="2"/>
+                            <circle cx="100" cy="160" r="12" fill="rgba(76, 175, 80, 0.4)" stroke="#4caf50" stroke-width="2"/>
+                            <circle cx="100" cy="100" r="25" fill="#fff8dc" stroke="#c41e3a" stroke-width="2"/>
+                            <text x="100" y="108" text-anchor="middle" font-size="24" fill="#c41e3a" font-weight="bold">帅</text>
+                        </svg>
+                        <div class="diagram-caption">帅每次走一步，只能上下左右走</div>
+                    </div>
+                    <p><strong>走法规则：</strong></p>
+                    <ul>
+                        <li>每次只能走<span class="highlight">一步</span></li>
+                        <li>只能<span class="highlight">直走</span>（上、下、左、右，不能斜走）</li>
+                        <li>必须<span class="highlight">待在九宫格内</span></li>
+                    </ul>
+                    <p><strong>白脸将规则：</strong>两个将帅不能在同一列上直接面对面，中间必须有棋子！</p>
+                `
+            },
+            // Lesson 3: Advisors
+            {
+                title: "士",
+                content: `
+                    <h3>士</h3>
+                    <p>每方有<span class="highlight">两个士</span>，用来保护将帅。士也只能在九宫格内活动。</p>
+                    <div class="diagram-container">
+                        <svg viewBox="0 0 200 200" width="200" height="200">
+                            <rect x="20" y="20" width="160" height="160" fill="#f5deb3" rx="5"/>
+                            <line x1="40" y1="40" x2="160" y2="40" stroke="#c4a35a" stroke-width="1.5"/>
+                            <line x1="40" y1="100" x2="160" y2="100" stroke="#c4a35a" stroke-width="1.5"/>
+                            <line x1="40" y1="160" x2="160" y2="160" stroke="#c4a35a" stroke-width="1.5"/>
+                            <line x1="40" y1="40" x2="40" y2="160" stroke="#c4a35a" stroke-width="1.5"/>
+                            <line x1="100" y1="40" x2="100" y2="160" stroke="#c4a35a" stroke-width="1.5"/>
+                            <line x1="160" y1="40" x2="160" y2="160" stroke="#c4a35a" stroke-width="1.5"/>
+                            <line x1="40" y1="40" x2="160" y2="160" stroke="#c4a35a" stroke-width="1"/>
+                            <line x1="160" y1="40" x2="40" y2="160" stroke="#c4a35a" stroke-width="1"/>
+                            <circle cx="40" cy="40" r="12" fill="rgba(76, 175, 80, 0.4)" stroke="#4caf50" stroke-width="2"/>
+                            <circle cx="160" cy="40" r="12" fill="rgba(76, 175, 80, 0.4)" stroke="#4caf50" stroke-width="2"/>
+                            <circle cx="40" cy="160" r="12" fill="rgba(76, 175, 80, 0.4)" stroke="#4caf50" stroke-width="2"/>
+                            <circle cx="160" cy="160" r="12" fill="rgba(76, 175, 80, 0.4)" stroke="#4caf50" stroke-width="2"/>
+                            <circle cx="100" cy="100" r="25" fill="#fff8dc" stroke="#c41e3a" stroke-width="2"/>
+                            <text x="100" y="108" text-anchor="middle" font-size="24" fill="#c41e3a" font-weight="bold">仕</text>
+                        </svg>
+                        <div class="diagram-caption">士沿着斜线走一步</div>
+                    </div>
+                    <p><strong>走法规则：</strong></p>
+                    <ul>
+                        <li>每次只能<span class="highlight">斜走一步</span></li>
+                        <li>必须<span class="highlight">待在九宫格内</span></li>
+                        <li>只能在九宫格的<span class="highlight">5个点</span>上：中心和四个角</li>
+                    </ul>
+                    <p><strong>策略提示：</strong>士主要用于防守，要让他们贴近将帅形成保护！</p>
+                `
+            },
+            // Lesson 4: Elephants
+            {
+                title: "相/象",
+                content: `
+                    <h3>相/象</h3>
+                    <p>每方有<span class="highlight">两个相（象）</span>。它们是防守棋子，不能过河。</p>
+                    <p>红方叫<span class="highlight">相</span>，黑方叫<span class="highlight">象</span>。</p>
+                    <div class="diagram-container">
+                        <svg viewBox="0 0 280 280" width="280" height="280">
+                            <rect x="20" y="20" width="240" height="240" fill="#f5deb3" rx="5"/>
+                            <line x1="40" y1="60" x2="240" y2="60" stroke="#c4a35a" stroke-width="1.5"/>
+                            <line x1="40" y1="100" x2="240" y2="100" stroke="#c4a35a" stroke-width="1.5"/>
+                            <line x1="40" y1="140" x2="240" y2="140" stroke="#c4a35a" stroke-width="1.5"/>
+                            <line x1="40" y1="180" x2="240" y2="180" stroke="#c4a35a" stroke-width="1.5"/>
+                            <line x1="40" y1="220" x2="240" y2="220" stroke="#c4a35a" stroke-width="1.5"/>
+                            <line x1="60" y1="60" x2="60" y2="220" stroke="#c4a35a" stroke-width="1.5"/>
+                            <line x1="100" y1="60" x2="100" y2="220" stroke="#c4a35a" stroke-width="1.5"/>
+                            <line x1="140" y1="60" x2="140" y2="220" stroke="#c4a35a" stroke-width="1.5"/>
+                            <line x1="180" y1="60" x2="180" y2="220" stroke="#c4a35a" stroke-width="1.5"/>
+                            <line x1="220" y1="60" x2="220" y2="220" stroke="#c4a35a" stroke-width="1.5"/>
+                            <circle cx="60" cy="60" r="12" fill="rgba(76, 175, 80, 0.4)" stroke="#4caf50" stroke-width="2"/>
+                            <circle cx="220" cy="60" r="12" fill="rgba(76, 175, 80, 0.4)" stroke="#4caf50" stroke-width="2"/>
+                            <circle cx="60" cy="220" r="12" fill="rgba(76, 175, 80, 0.4)" stroke="#4caf50" stroke-width="2"/>
+                            <circle cx="220" cy="220" r="12" fill="rgba(76, 175, 80, 0.4)" stroke="#4caf50" stroke-width="2"/>
+                            <circle cx="100" cy="100" r="6" fill="rgba(255, 152, 0, 0.6)" stroke="#ff9800" stroke-width="2"/>
+                            <circle cx="180" cy="100" r="6" fill="rgba(255, 152, 0, 0.6)" stroke="#ff9800" stroke-width="2"/>
+                            <circle cx="100" cy="180" r="6" fill="rgba(255, 152, 0, 0.6)" stroke="#ff9800" stroke-width="2"/>
+                            <circle cx="180" cy="180" r="6" fill="rgba(255, 152, 0, 0.6)" stroke="#ff9800" stroke-width="2"/>
+                            <circle cx="140" cy="140" r="25" fill="#fff8dc" stroke="#c41e3a" stroke-width="2"/>
+                            <text x="140" y="148" text-anchor="middle" font-size="24" fill="#c41e3a" font-weight="bold">相</text>
+                            <text x="150" y="265" text-anchor="middle" fill="#666" font-size="10">橙色点 = 塞象眼的位置</text>
+                        </svg>
+                        <div class="diagram-caption">相走"田"字对角（斜走两格）</div>
+                    </div>
+                    <p><strong>走法规则：</strong></p>
+                    <ul>
+                        <li>走<span class="highlight">"田"字对角</span>（斜走两格）</li>
+                        <li><span class="highlight">不能过河</span>——纯防守棋子</li>
+                        <li>可以被<span class="highlight">"塞象眼"</span>——如果对角线中间有棋子，相就不能往那个方向走</li>
+                    </ul>
+                `
+            },
+            // Lesson 5: Horses
+            {
+                title: "马",
+                content: `
+                    <h3>马</h3>
+                    <p>每方有<span class="highlight">两匹马</span>。走法类似国际象棋的马，但有重要区别！</p>
+                    <div class="diagram-container">
+                        <svg viewBox="0 0 280 280" width="280" height="280">
+                            <rect x="20" y="20" width="240" height="240" fill="#f5deb3" rx="5"/>
+                            <line x1="40" y1="60" x2="240" y2="60" stroke="#c4a35a" stroke-width="1.5"/>
+                            <line x1="40" y1="100" x2="240" y2="100" stroke="#c4a35a" stroke-width="1.5"/>
+                            <line x1="40" y1="140" x2="240" y2="140" stroke="#c4a35a" stroke-width="1.5"/>
+                            <line x1="40" y1="180" x2="240" y2="180" stroke="#c4a35a" stroke-width="1.5"/>
+                            <line x1="40" y1="220" x2="240" y2="220" stroke="#c4a35a" stroke-width="1.5"/>
+                            <line x1="60" y1="60" x2="60" y2="220" stroke="#c4a35a" stroke-width="1.5"/>
+                            <line x1="100" y1="60" x2="100" y2="220" stroke="#c4a35a" stroke-width="1.5"/>
+                            <line x1="140" y1="60" x2="140" y2="220" stroke="#c4a35a" stroke-width="1.5"/>
+                            <line x1="180" y1="60" x2="180" y2="220" stroke="#c4a35a" stroke-width="1.5"/>
+                            <line x1="220" y1="60" x2="220" y2="220" stroke="#c4a35a" stroke-width="1.5"/>
+                            <circle cx="100" cy="60" r="12" fill="rgba(76, 175, 80, 0.4)" stroke="#4caf50" stroke-width="2"/>
+                            <circle cx="180" cy="60" r="12" fill="rgba(76, 175, 80, 0.4)" stroke="#4caf50" stroke-width="2"/>
+                            <circle cx="60" cy="100" r="12" fill="rgba(76, 175, 80, 0.4)" stroke="#4caf50" stroke-width="2"/>
+                            <circle cx="220" cy="100" r="12" fill="rgba(76, 175, 80, 0.4)" stroke="#4caf50" stroke-width="2"/>
+                            <circle cx="60" cy="180" r="12" fill="rgba(76, 175, 80, 0.4)" stroke="#4caf50" stroke-width="2"/>
+                            <circle cx="220" cy="180" r="12" fill="rgba(76, 175, 80, 0.4)" stroke="#4caf50" stroke-width="2"/>
+                            <circle cx="100" cy="220" r="12" fill="rgba(76, 175, 80, 0.4)" stroke="#4caf50" stroke-width="2"/>
+                            <circle cx="180" cy="220" r="12" fill="rgba(76, 175, 80, 0.4)" stroke="#4caf50" stroke-width="2"/>
+                            <circle cx="140" cy="100" r="6" fill="rgba(255, 152, 0, 0.6)" stroke="#ff9800" stroke-width="2"/>
+                            <circle cx="100" cy="140" r="6" fill="rgba(255, 152, 0, 0.6)" stroke="#ff9800" stroke-width="2"/>
+                            <circle cx="180" cy="140" r="6" fill="rgba(255, 152, 0, 0.6)" stroke="#ff9800" stroke-width="2"/>
+                            <circle cx="140" cy="180" r="6" fill="rgba(255, 152, 0, 0.6)" stroke="#ff9800" stroke-width="2"/>
+                            <circle cx="140" cy="140" r="25" fill="#fff8dc" stroke="#c41e3a" stroke-width="2"/>
+                            <text x="140" y="148" text-anchor="middle" font-size="24" fill="#c41e3a" font-weight="bold">傌</text>
+                            <text x="150" y="265" text-anchor="middle" fill="#666" font-size="10">橙色点 = 蹩马腿的位置</text>
+                        </svg>
+                        <div class="diagram-caption">马走"日"字（先直后斜）</div>
+                    </div>
+                    <p><strong>走法规则：</strong></p>
+                    <ul>
+                        <li>走<span class="highlight">"日"字</span>：先直走一格，再斜走一格</li>
+                        <li><span class="highlight">可以被"蹩马腿"！</span>如果直走的那个位置有棋子，马就不能往那个方向走</li>
+                        <li>可以过河</li>
+                    </ul>
+                    <p><strong>策略提示：</strong>马是强力进攻棋子，但要注意蹩马腿！</p>
+                `
+            },
+            // Lesson 6: Chariots
+            {
+                title: "车",
+                content: `
+                    <h3>车</h3>
+                    <p>每方有<span class="highlight">两辆车</span>。车是象棋中<span class="highlight">最强的棋子</span>！</p>
+                    <div class="diagram-container">
+                        <svg viewBox="0 0 280 280" width="280" height="280">
+                            <rect x="20" y="20" width="240" height="240" fill="#f5deb3" rx="5"/>
+                            <line x1="40" y1="60" x2="240" y2="60" stroke="#c4a35a" stroke-width="1.5"/>
+                            <line x1="40" y1="100" x2="240" y2="100" stroke="#c4a35a" stroke-width="1.5"/>
+                            <line x1="40" y1="140" x2="240" y2="140" stroke="#c4a35a" stroke-width="1.5"/>
+                            <line x1="40" y1="180" x2="240" y2="180" stroke="#c4a35a" stroke-width="1.5"/>
+                            <line x1="40" y1="220" x2="240" y2="220" stroke="#c4a35a" stroke-width="1.5"/>
+                            <line x1="60" y1="60" x2="60" y2="220" stroke="#c4a35a" stroke-width="1.5"/>
+                            <line x1="100" y1="60" x2="100" y2="220" stroke="#c4a35a" stroke-width="1.5"/>
+                            <line x1="140" y1="60" x2="140" y2="220" stroke="#c4a35a" stroke-width="1.5"/>
+                            <line x1="180" y1="60" x2="180" y2="220" stroke="#c4a35a" stroke-width="1.5"/>
+                            <line x1="220" y1="60" x2="220" y2="220" stroke="#c4a35a" stroke-width="1.5"/>
+                            <line x1="140" y1="60" x2="140" y2="120" stroke="#4caf50" stroke-width="4" stroke-linecap="round"/>
+                            <line x1="140" y1="160" x2="140" y2="220" stroke="#4caf50" stroke-width="4" stroke-linecap="round"/>
+                            <line x1="60" y1="140" x2="120" y2="140" stroke="#4caf50" stroke-width="4" stroke-linecap="round"/>
+                            <line x1="160" y1="140" x2="220" y2="140" stroke="#4caf50" stroke-width="4" stroke-linecap="round"/>
+                            <circle cx="140" cy="60" r="10" fill="rgba(76, 175, 80, 0.4)" stroke="#4caf50" stroke-width="2"/>
+                            <circle cx="140" cy="100" r="10" fill="rgba(76, 175, 80, 0.4)" stroke="#4caf50" stroke-width="2"/>
+                            <circle cx="140" cy="180" r="10" fill="rgba(76, 175, 80, 0.4)" stroke="#4caf50" stroke-width="2"/>
+                            <circle cx="140" cy="220" r="10" fill="rgba(76, 175, 80, 0.4)" stroke="#4caf50" stroke-width="2"/>
+                            <circle cx="60" cy="140" r="10" fill="rgba(76, 175, 80, 0.4)" stroke="#4caf50" stroke-width="2"/>
+                            <circle cx="100" cy="140" r="10" fill="rgba(76, 175, 80, 0.4)" stroke="#4caf50" stroke-width="2"/>
+                            <circle cx="180" cy="140" r="10" fill="rgba(76, 175, 80, 0.4)" stroke="#4caf50" stroke-width="2"/>
+                            <circle cx="220" cy="140" r="10" fill="rgba(76, 175, 80, 0.4)" stroke="#4caf50" stroke-width="2"/>
+                            <circle cx="140" cy="140" r="25" fill="#fff8dc" stroke="#c41e3a" stroke-width="2"/>
+                            <text x="140" y="148" text-anchor="middle" font-size="24" fill="#c41e3a" font-weight="bold">俥</text>
+                        </svg>
+                        <div class="diagram-caption">车可以横走或直走任意格数</div>
+                    </div>
+                    <p><strong>走法规则：</strong></p>
+                    <ul>
+                        <li>可以<span class="highlight">横走或直走任意格数</span></li>
+                        <li>不能斜走</li>
+                        <li>不能跳过其他棋子</li>
+                        <li>可以过河</li>
+                    </ul>
+                    <p><strong>策略提示：</strong>车相当于国际象棋的"车"，是你最强的棋子。要尽早出车！</p>
+                `
+            },
+            // Lesson 7: Cannons
+            {
+                title: "炮",
+                content: `
+                    <h3>炮</h3>
+                    <p>每方有<span class="highlight">两门炮</span>。这是象棋<span class="highlight">独有的棋子</span>，国际象棋中没有！</p>
+                    <div class="diagram-container">
+                        <svg viewBox="0 0 360 200" width="360" height="200">
+                            <rect x="20" y="20" width="320" height="160" fill="#f5deb3" rx="5"/>
+                            <line x1="40" y1="60" x2="320" y2="60" stroke="#c4a35a" stroke-width="1.5"/>
+                            <line x1="40" y1="100" x2="320" y2="100" stroke="#c4a35a" stroke-width="1.5"/>
+                            <line x1="40" y1="140" x2="320" y2="140" stroke="#c4a35a" stroke-width="1.5"/>
+                            <line x1="60" y1="60" x2="60" y2="140" stroke="#c4a35a" stroke-width="1.5"/>
+                            <line x1="100" y1="60" x2="100" y2="140" stroke="#c4a35a" stroke-width="1.5"/>
+                            <line x1="140" y1="60" x2="140" y2="140" stroke="#c4a35a" stroke-width="1.5"/>
+                            <line x1="180" y1="60" x2="180" y2="140" stroke="#c4a35a" stroke-width="1.5"/>
+                            <line x1="220" y1="60" x2="220" y2="140" stroke="#c4a35a" stroke-width="1.5"/>
+                            <line x1="260" y1="60" x2="260" y2="140" stroke="#c4a35a" stroke-width="1.5"/>
+                            <line x1="300" y1="60" x2="300" y2="140" stroke="#c4a35a" stroke-width="1.5"/>
+                            <line x1="100" y1="100" x2="180" y2="100" stroke="#4caf50" stroke-width="3" stroke-dasharray="8,4"/>
+                            <circle cx="220" cy="100" r="18" fill="#ddd" stroke="#999" stroke-width="2"/>
+                            <text x="220" y="105" text-anchor="middle" font-size="12" fill="#666">炮架</text>
+                            <line x1="180" y1="100" x2="280" y2="100" stroke="#f44336" stroke-width="3"/>
+                            <polygon points="290,100 275,93 275,107" fill="#f44336"/>
+                            <circle cx="300" cy="100" r="18" fill="#fff8dc" stroke="#1a1a1a" stroke-width="2"/>
+                            <text x="300" y="106" text-anchor="middle" font-size="16" fill="#1a1a1a" font-weight="bold">馬</text>
+                            <circle cx="60" cy="100" r="22" fill="#fff8dc" stroke="#c41e3a" stroke-width="2"/>
+                            <text x="60" y="107" text-anchor="middle" font-size="20" fill="#c41e3a" font-weight="bold">炮</text>
+                            <text x="140" y="85" text-anchor="middle" fill="#4caf50" font-size="11">移动（不跳）</text>
+                            <text x="250" y="130" text-anchor="middle" fill="#f44336" font-size="11">吃子（必须跳）</text>
+                        </svg>
+                        <div class="diagram-caption">炮移动时像车，但吃子必须隔一个棋子</div>
+                    </div>
+                    <p><strong>走法规则：</strong></p>
+                    <ul>
+                        <li><strong>移动时：</strong>和车一样，横走或直走任意格，<span class="highlight">不能跳</span></li>
+                        <li><strong>吃子时：</strong>必须隔<span class="highlight">正好一个棋子</span>（叫"炮架"）才能吃</li>
+                        <li>炮架可以是己方或敌方的棋子</li>
+                        <li>可以过河</li>
+                    </ul>
+                    <p><strong>策略提示：</strong>炮在开局和中局棋子多时威力大，残局时因为缺少炮架而变弱！</p>
+                `
+            },
+            // Lesson 8: Soldiers
+            {
+                title: "兵/卒",
+                content: `
+                    <h3>兵/卒</h3>
+                    <p>每方有<span class="highlight">五个兵（卒）</span>，类似于国际象棋的兵。</p>
+                    <p>红方叫<span class="highlight">兵</span>，黑方叫<span class="highlight">卒</span>。</p>
+                    <div class="diagram-container">
+                        <svg viewBox="0 0 340 240" width="340" height="240">
+                            <rect x="20" y="20" width="300" height="200" fill="#f5deb3" rx="5"/>
+                            <line x1="40" y1="60" x2="300" y2="60" stroke="#c4a35a" stroke-width="1.5"/>
+                            <line x1="40" y1="110" x2="300" y2="110" stroke="#c4a35a" stroke-width="1.5"/>
+                            <line x1="40" y1="160" x2="300" y2="160" stroke="#c4a35a" stroke-width="1.5"/>
+                            <line x1="40" y1="210" x2="300" y2="210" stroke="#c4a35a" stroke-width="1.5"/>
+                            <line x1="60" y1="60" x2="60" y2="210" stroke="#c4a35a" stroke-width="1.5"/>
+                            <line x1="110" y1="60" x2="110" y2="210" stroke="#c4a35a" stroke-width="1.5"/>
+                            <line x1="160" y1="60" x2="160" y2="210" stroke="#c4a35a" stroke-width="1.5"/>
+                            <line x1="210" y1="60" x2="210" y2="210" stroke="#c4a35a" stroke-width="1.5"/>
+                            <line x1="260" y1="60" x2="260" y2="210" stroke="#c4a35a" stroke-width="1.5"/>
+                            <rect x="40" y="108" width="260" height="24" fill="rgba(100, 149, 237, 0.2)"/>
+                            <text x="170" y="124" text-anchor="middle" fill="#4a7c59" font-size="12">~ 楚河汉界 ~</text>
+                            <circle cx="110" cy="160" r="20" fill="#fff8dc" stroke="#c41e3a" stroke-width="2"/>
+                            <text x="110" y="167" text-anchor="middle" font-size="18" fill="#c41e3a" font-weight="bold">兵</text>
+                            <circle cx="110" cy="110" r="10" fill="rgba(76, 175, 80, 0.4)" stroke="#4caf50" stroke-width="2"/>
+                            <text x="110" y="195" text-anchor="middle" fill="#666" font-size="10">过河前：</text>
+                            <text x="110" y="208" text-anchor="middle" fill="#666" font-size="10">只能向前</text>
+                            <circle cx="235" cy="85" r="20" fill="#fff8dc" stroke="#c41e3a" stroke-width="2"/>
+                            <text x="235" y="92" text-anchor="middle" font-size="18" fill="#c41e3a" font-weight="bold">兵</text>
+                            <circle cx="235" cy="60" r="10" fill="rgba(76, 175, 80, 0.4)" stroke="#4caf50" stroke-width="2"/>
+                            <circle cx="210" cy="85" r="10" fill="rgba(76, 175, 80, 0.4)" stroke="#4caf50" stroke-width="2"/>
+                            <circle cx="260" cy="85" r="10" fill="rgba(76, 175, 80, 0.4)" stroke="#4caf50" stroke-width="2"/>
+                            <text x="235" y="45" text-anchor="middle" fill="#666" font-size="10">过河后：向前+左右</text>
+                        </svg>
+                        <div class="diagram-caption">兵过河后可以左右移动</div>
+                    </div>
+                    <p><strong>走法规则：</strong></p>
+                    <ul>
+                        <li><strong>过河前：</strong>只能<span class="highlight">向前走一步</span></li>
+                        <li><strong>过河后：</strong>可以<span class="highlight">向前或左右走一步</span></li>
+                        <li><span class="highlight">永远不能后退</span></li>
+                        <li><span class="highlight">不能升变</span>——和国际象棋不同</li>
+                        <li>吃子方式和走法相同（不是斜吃）</li>
+                    </ul>
+                    <p><strong>策略提示：</strong>尽量让兵过河，增加活动能力！</p>
+                `
+            },
+            // Lesson 9: Rules
+            {
+                title: "规则",
+                content: `
+                    <h3>重要规则和基本策略</h3>
+                    <p>恭喜你学完了所有棋子！下面是一些重要规则和技巧。</p>
+                    <p><strong>胜负判定：</strong></p>
+                    <ul>
+                        <li><span class="highlight">将死</span> - 对方将帅无处可逃</li>
+                        <li><span class="highlight">困毙</span> - 和国际象棋不同，被困住无法走棋的一方<strong>输</strong>！</li>
+                    </ul>
+                    <p><strong>特殊规则：</strong></p>
+                    <ul>
+                        <li><strong>白脸将：</strong>两个将帅不能在同一列直接面对</li>
+                        <li><strong>长将：</strong>不能无限次连续将军——通常判和或判负</li>
+                        <li><strong>长捉：</strong>反复追吃对方棋子也有限制</li>
+                    </ul>
+                    <div class="diagram-container">
+                        <svg viewBox="0 0 400 200" width="400" height="200">
+                            <rect x="20" y="20" width="360" height="160" fill="#f5deb3" rx="5"/>
+                            <line x1="200" y1="40" x2="200" y2="160" stroke="#c4a35a" stroke-width="1.5"/>
+                            <line x1="40" y1="100" x2="360" y2="100" stroke="#c4a35a" stroke-width="1.5"/>
+                            <circle cx="200" cy="150" r="22" fill="#fff8dc" stroke="#c41e3a" stroke-width="2"/>
+                            <text x="200" y="157" text-anchor="middle" font-size="20" fill="#c41e3a" font-weight="bold">帅</text>
+                            <circle cx="200" cy="50" r="22" fill="#fff8dc" stroke="#1a1a1a" stroke-width="2"/>
+                            <text x="200" y="57" text-anchor="middle" font-size="20" fill="#1a1a1a" font-weight="bold">將</text>
+                            <line x1="185" y1="85" x2="215" y2="115" stroke="#f44336" stroke-width="4"/>
+                            <line x1="215" y1="85" x2="185" y2="115" stroke="#f44336" stroke-width="4"/>
+                            <text x="290" y="100" text-anchor="middle" fill="#f44336" font-size="12">白脸将</text>
+                            <text x="290" y="115" text-anchor="middle" fill="#f44336" font-size="12">= 违规！</text>
+                        </svg>
+                        <div class="diagram-caption">白脸将规则 - 将帅不能直接面对</div>
+                    </div>
+                    <p><strong>开局原则：</strong></p>
+                    <ul>
+                        <li><span class="highlight">尽早出车</span> - 最强的棋子</li>
+                        <li>控制<span class="highlight">中路</span></li>
+                        <li>双车连线</li>
+                        <li>推兵过河</li>
+                        <li>趁棋子多时用好炮</li>
+                    </ul>
+                    <p><strong>你已经可以开始下棋了！</strong>最好的进步方式是多练习。祝你好运！</p>
+                `
+            },
+            // Lesson 10: Openings
+            {
+                title: "开局",
+                content: `
+                    <h3>开局原则（布局）</h3>
+                    <p>开局阶段为整盘棋奠定基础。让我们学习关键原则和常见开局。</p>
+                    <p><strong>开局黄金法则：</strong></p>
+                    <ul>
+                        <li><span class="highlight">先出车</span> - "三步不出车是败局"</li>
+                        <li><span class="highlight">控制中路</span> - 中路（第5列）至关重要</li>
+                        <li><span class="highlight">双车连线</span> - 让两辆车在底线配合</li>
+                        <li><span class="highlight">早用炮</span> - 棋子多时炮最厉害</li>
+                    </ul>
+                    <p><strong>常见开局体系：</strong></p>
+                    <ul>
+                        <li><strong>中炮</strong> - 炮移到中路，进攻性强，最常见</li>
+                        <li><strong>屏风马</strong> - 双马守中，稳健</li>
+                        <li><strong>仙人指路</strong> - 先进中兵，灵活</li>
+                        <li><strong>飞象局</strong> - 先走相，防守型</li>
+                    </ul>
+                `
+            },
+            // Lesson 11: Tactics
+            {
+                title: "战术",
+                content: `
+                    <h3>基本战术（战术）</h3>
+                    <p>战术是赢得子力或取得决定性优势的短期组合。掌握这些模式！</p>
+                    <p><strong>1. 双重攻击（捉双）</strong></p>
+                    <p>同时攻击两个棋子——对方只能救一个！</p>
+                    <p><strong>2. 牵制</strong></p>
+                    <p>一个棋子不能动，因为动了会暴露后面更重要的棋子。</p>
+                    <p><strong>3. 抽将/抽吃</strong></p>
+                    <p>移动一个棋子，露出后面棋子的攻击。</p>
+                    <p><strong>4. 双重威胁</strong></p>
+                    <p>同时制造两个威胁——将军的同时攻击另一个子最致命！</p>
+                    <p><strong>战术要点：</strong></p>
+                    <ul>
+                        <li>找<span class="highlight">没有保护的棋子</span></li>
+                        <li>看对方棋子是否<span class="highlight">排成一线</span>可以捉双或牵制</li>
+                        <li>用<span class="highlight">将军</span>争取时间布置组合</li>
+                        <li><span class="highlight">炮</span>特别擅长抽将</li>
+                    </ul>
+                `
+            },
+            // Lesson 12: Checkmates
+            {
+                title: "杀法",
+                content: `
+                    <h3>常见杀法</h3>
+                    <p>学习这些经典杀法可以帮你结束比赛和识别威胁！</p>
+                    <p><strong>1. 白脸将杀</strong></p>
+                    <p>最基本的杀法——用车将死对方。</p>
+                    <p><strong>2. 双车殺</strong></p>
+                    <p>两辆车配合，形成无法逃脱的攻势。</p>
+                    <p><strong>3. 重炮殺</strong></p>
+                    <p>炮用车（或其他子）作炮架将死对方。</p>
+                    <p><strong>4. 铁门栓殺</strong></p>
+                    <p>车控制住一列，炮或马从侧面将死。</p>
+                    <p><strong>5. 双炮殺</strong></p>
+                    <p>一个炮做另一个炮的炮架——非常致命！</p>
+                    <p><strong>要点：</strong></p>
+                    <ul>
+                        <li>先<span class="highlight">限制将帅的活动空间</span></li>
+                        <li><span class="highlight">炮靠近九宫格</span>时特别危险</li>
+                        <li>可以用<span class="highlight">白脸将</span>战术——你的将帅也能帮忙堵住逃路！</li>
+                    </ul>
+                `
+            },
+            // Lesson 13: Defense
+            {
+                title: "防守",
+                content: `
+                    <h3>防守技巧（防守）</h3>
+                    <p>稳固的防守是下好棋的基础。学会保护你的将帅和反击！</p>
+                    <p><strong>九宫防守阵型：</strong></p>
+                    <ul>
+                        <li><strong>"实"型</strong> - 双士守护，将帅在底线中间</li>
+                        <li><strong>"花"型</strong> - 将帅在九宫中心，双士在底线两侧</li>
+                    </ul>
+                    <p><strong>防守要点：</strong></p>
+                    <ul>
+                        <li><span class="highlight">保持士的连接</span>，贴近将帅</li>
+                        <li><span class="highlight">不要轻易动相</span>——它们守护着关键位置</li>
+                        <li><span class="highlight">留一辆车防守</span></li>
+                        <li>注意<span class="highlight">底线空虚</span>——别让将帅暴露</li>
+                    </ul>
+                    <p><strong>反击策略：</strong></p>
+                    <ul>
+                        <li><strong>最好的防守是进攻</strong>——边防守边制造威胁</li>
+                        <li>用<span class="highlight">将军争取时间</span>调整布局</li>
+                        <li>压力大时寻找<span class="highlight">兑子</span>简化局面</li>
+                        <li><span class="highlight">兑掉对方进攻棋子</span>缓解压力</li>
+                    </ul>
+                    <p><strong>常见防守错误：</strong></p>
+                    <ul>
+                        <li>过早移动将帅（暴露目标）</li>
+                        <li>双士都被吃掉（九宫防守弱化）</li>
+                        <li>只顾进攻忽视防守</li>
+                        <li>没有留车防守</li>
+                    </ul>
+                `
+            },
+            // Lesson 14: Endgame
+            {
+                title: "残局",
+                content: `
+                    <h3>残局原则（残局）</h3>
+                    <p>残局是决定胜负的关键阶段。棋子少了，每一步都很重要！</p>
+                    <p><strong>残局中棋子价值变化：</strong></p>
+                    <ul>
+                        <li><span class="highlight">车</span> - 仍是最强的棋子，更加重要</li>
+                        <li><span class="highlight">炮</span> - 变弱了（炮架少了）</li>
+                        <li><span class="highlight">马</span> - 变强了（蹩马腿的机会少了）</li>
+                        <li><span class="highlight">兵</span> - 过河的兵可能非常强！</li>
+                    </ul>
+                    <p><strong>残局基本知识：</strong></p>
+                    <ul>
+                        <li><strong>车+兵</strong> 对 单将 = 胜（需要正确技巧）</li>
+                        <li><strong>单车</strong> 对 单将 = 通常和（但将位置不好可能输）</li>
+                        <li><strong>马+兵</strong> 对 单将 = 胜（需要技巧）</li>
+                        <li><strong>单炮</strong> 对 单将 = 和（没有炮架无法将死）</li>
+                    </ul>
+                    <p><strong>残局策略：</strong></p>
+                    <ul>
+                        <li><span class="highlight">激活你的将帅！</span>残局中将帅可以利用白脸将规则参与进攻</li>
+                        <li><span class="highlight">推进过河兵</span>——它们变得很危险</li>
+                        <li><span class="highlight">棋子要集中</span>——控制更多位置</li>
+                        <li><span class="highlight">限制对方将帅</span>——先缩小活动范围再进攻</li>
+                    </ul>
+                    <p><strong>白脸将作为武器：</strong></p>
+                    <p>残局中可以用你的将帅控制列！如果两个将帅之间没有棋子，对方将帅就不能进入那一列。</p>
+                    <p><strong>练习提示：</strong>多学习经典残局。掌握这些模式能帮你赢得该赢的棋，守住该和的棋！</p>
+                `
+            }
+        ];
+
+        // UI translations
+        const uiText = {
+            en: {
+                title: "Learn Chinese Chess",
+                subtitle: "An interactive guide to mastering Xiangqi",
+                quickRef: "Quick Reference - All Pieces",
+                continueBtn: "Continue to Next Lesson",
+                startOver: "Start Over",
+                lessonOf: "Lesson {0} of {1}",
+                navLabels: ["Welcome", "The Board", "General", "Advisors", "Elephants", "Horses", "Chariots", "Cannons", "Soldiers", "Rules", "Openings", "Tactics", "Checkmates", "Defense", "Endgame"],
+                pieces: [
+                    { name: "General (帥/將)", desc: "Moves 1 space orthogonally, stays in palace", char: "帥" },
+                    { name: "Advisor (仕/士)", desc: "Moves 1 space diagonally, stays in palace", char: "仕" },
+                    { name: "Elephant (相/象)", desc: "Moves 2 spaces diagonally, cannot cross river", char: "相" },
+                    { name: "Horse (傌/馬)", desc: "L-shape move, can be blocked", char: "傌" },
+                    { name: "Chariot (俥/車)", desc: "Moves any distance orthogonally", char: "俥" },
+                    { name: "Cannon (炮/砲)", desc: "Moves orthogonally, jumps to capture", char: "炮" },
+                    { name: "Soldier (兵/卒)", desc: "Forward only, sideways after crossing river", char: "兵" }
+                ]
+            },
+            zh: {
+                title: "学习中国象棋",
+                subtitle: "象棋入门互动教程",
+                quickRef: "棋子速查表",
+                continueBtn: "继续下一课",
+                startOver: "重新开始",
+                lessonOf: "第 {0} 课，共 {1} 课",
+                navLabels: ["欢迎", "棋盘", "将/帅", "士", "相/象", "马", "车", "炮", "兵/卒", "规则", "开局", "战术", "杀法", "防守", "残局"],
+                pieces: [
+                    { name: "将/帅", desc: "直走一步，只能在九宫内", char: "帥" },
+                    { name: "士", desc: "斜走一步，只能在九宫内", char: "仕" },
+                    { name: "相/象", desc: "走田字，不能过河", char: "相" },
+                    { name: "马", desc: "走日字，可被蹩腿", char: "傌" },
+                    { name: "车", desc: "横直走任意格", char: "俥" },
+                    { name: "炮", desc: "横直走，隔子吃", char: "炮" },
+                    { name: "兵/卒", desc: "向前走，过河可横走", char: "兵" }
+                ]
+            }
+        };
+
         let currentLesson = 0;
+        let currentLang = 'en';
+
+        function getCurrentLessons() {
+            return currentLang === 'en' ? lessons : lessonsZh;
+        }
 
         function renderLesson(lessonIndex) {
-            const lesson = lessons[lessonIndex];
+            const currentLessons = getCurrentLessons();
+            const lesson = currentLessons[lessonIndex];
             const chatMessages = document.getElementById('chatMessages');
+            const ui = uiText[currentLang];
 
             chatMessages.innerHTML = `
                 <div class="message bot-message">
@@ -1423,20 +2003,67 @@
             });
 
             // Update progress
-            const progress = ((lessonIndex + 1) / lessons.length) * 100;
+            const progress = ((lessonIndex + 1) / currentLessons.length) * 100;
             document.getElementById('progressFill').style.width = `${progress}%`;
-            document.getElementById('progressText').textContent = `Lesson ${lessonIndex + 1} of ${lessons.length}`;
+            document.getElementById('progressText').textContent = ui.lessonOf.replace('{0}', lessonIndex + 1).replace('{1}', currentLessons.length);
 
             // Update continue button
             const continueBtn = document.getElementById('continueBtn');
-            if (lessonIndex >= lessons.length - 1) {
-                continueBtn.textContent = 'Start Over';
+            if (lessonIndex >= currentLessons.length - 1) {
+                continueBtn.textContent = ui.startOver;
             } else {
-                continueBtn.textContent = 'Continue to Next Lesson';
+                continueBtn.textContent = ui.continueBtn;
             }
 
             // Scroll to top of chat
             chatMessages.scrollTop = 0;
+        }
+
+        function updateUI() {
+            const ui = uiText[currentLang];
+
+            // Update header
+            document.getElementById('mainTitle').textContent = ui.title;
+            document.getElementById('subtitle').textContent = ui.subtitle;
+
+            // Update nav buttons
+            document.querySelectorAll('.lesson-btn').forEach((btn, i) => {
+                btn.textContent = ui.navLabels[i];
+            });
+
+            // Update quick reference
+            document.getElementById('quickRefTitle').textContent = ui.quickRef;
+            renderPieceGrid();
+
+            // Update language toggle indicators
+            document.getElementById('langEn').classList.toggle('active', currentLang === 'en');
+            document.getElementById('langZh').classList.toggle('active', currentLang === 'zh');
+            document.getElementById('langToggle').classList.toggle('zh', currentLang === 'zh');
+
+            // Re-render current lesson
+            renderLesson(currentLesson);
+        }
+
+        function renderPieceGrid() {
+            const ui = uiText[currentLang];
+            const pieceGrid = document.getElementById('pieceGrid');
+            pieceGrid.innerHTML = ui.pieces.map(piece => `
+                <div class="piece-card">
+                    <svg class="piece-icon" viewBox="0 0 50 50">
+                        <circle cx="25" cy="25" r="22" class="red-piece piece-circle"/>
+                        <text x="25" y="32" text-anchor="middle" font-size="20" class="red-text">${piece.char}</text>
+                    </svg>
+                    <div class="piece-info">
+                        <h4>${piece.name}</h4>
+                        <p>${piece.desc}</p>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function toggleLanguage() {
+            currentLang = currentLang === 'en' ? 'zh' : 'en';
+            updateUI();
         }
 
         // Event listeners
@@ -1448,7 +2075,8 @@
         });
 
         document.getElementById('continueBtn').addEventListener('click', () => {
-            if (currentLesson >= lessons.length - 1) {
+            const currentLessons = getCurrentLessons();
+            if (currentLesson >= currentLessons.length - 1) {
                 currentLesson = 0;
             } else {
                 currentLesson++;
@@ -1456,9 +2084,12 @@
             renderLesson(currentLesson);
         });
 
+        document.getElementById('langToggle').addEventListener('click', toggleLanguage);
+
         // Keyboard navigation
         document.addEventListener('keydown', (e) => {
-            if (e.key === 'ArrowRight' && currentLesson < lessons.length - 1) {
+            const currentLessons = getCurrentLessons();
+            if (e.key === 'ArrowRight' && currentLesson < currentLessons.length - 1) {
                 currentLesson++;
                 renderLesson(currentLesson);
             } else if (e.key === 'ArrowLeft' && currentLesson > 0) {
@@ -1468,7 +2099,7 @@
         });
 
         // Initialize
-        renderLesson(0);
+        updateUI();
     </script>
 </body>
 </html>
