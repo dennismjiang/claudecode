@@ -421,6 +421,11 @@
             <button class="lesson-btn" data-lesson="7">Cannons</button>
             <button class="lesson-btn" data-lesson="8">Soldiers</button>
             <button class="lesson-btn" data-lesson="9">Rules</button>
+            <button class="lesson-btn" data-lesson="10">Openings</button>
+            <button class="lesson-btn" data-lesson="11">Tactics</button>
+            <button class="lesson-btn" data-lesson="12">Checkmates</button>
+            <button class="lesson-btn" data-lesson="13">Defense</button>
+            <button class="lesson-btn" data-lesson="14">Endgame</button>
         </nav>
 
         <div class="chat-container">
@@ -965,6 +970,400 @@
 
                     <p><strong>You're ready to play!</strong> The best way to improve is practice. Try playing online or with friends, and refer back to this tutorial whenever needed. Good luck! 祝你好运!</p>
                 `
+            },
+            // Lesson 10: Opening Principles
+            {
+                title: "Opening Strategy",
+                content: \`
+                    <h3>Opening Principles (布局)</h3>
+                    <p>The opening phase sets the foundation for the entire game. Let's learn the key principles and some popular opening systems.</p>
+
+                    <p><strong>The Golden Rules of Opening:</strong></p>
+                    <ul>
+                        <li><span class="highlight">Develop Chariots first</span> - "A Chariot not developed in three moves is a losing game" (三步不出車是敗局)</li>
+                        <li><span class="highlight">Control the center</span> - The central file (column 5) is crucial</li>
+                        <li><span class="highlight">Connect your Chariots</span> - Get them working together on the back rank</li>
+                        <li><span class="highlight">Activate Cannons early</span> - They're most powerful with many pieces on the board</li>
+                    </ul>
+
+                    <div class="diagram-container">
+                        <svg viewBox="0 0 400 300" width="400" height="300">
+                            <rect x="20" y="20" width="360" height="260" fill="#f5deb3" rx="5"/>
+
+                            <!-- Grid lines for bottom portion of board -->
+                            \${[...Array(5)].map((_, i) => \`<line x1="40" y1="\${60 + i * 40}" x2="360" y2="\${60 + i * 40}" stroke="#c4a35a" stroke-width="1.5"/>\`).join('')}
+                            \${[...Array(9)].map((_, i) => \`<line x1="\${40 + i * 40}" y1="60" x2="\${40 + i * 40}" y2="220" stroke="#c4a35a" stroke-width="1.5"/>\`).join('')}
+
+                            <!-- Palace diagonals -->
+                            <line x1="160" y1="140" x2="240" y2="220" stroke="#c4a35a" stroke-width="1"/>
+                            <line x1="240" y1="140" x2="160" y2="220" stroke="#c4a35a" stroke-width="1"/>
+
+                            <!-- Starting position pieces - back row -->
+                            <circle cx="40" cy="220" r="18" class="red-piece piece-circle"/>
+                            <text x="40" y="226" text-anchor="middle" font-size="16" class="red-text">俥</text>
+
+                            <circle cx="80" cy="220" r="18" class="red-piece piece-circle"/>
+                            <text x="80" y="226" text-anchor="middle" font-size="16" class="red-text">傌</text>
+
+                            <circle cx="120" cy="220" r="18" class="red-piece piece-circle"/>
+                            <text x="120" y="226" text-anchor="middle" font-size="16" class="red-text">相</text>
+
+                            <circle cx="160" cy="220" r="18" class="red-piece piece-circle"/>
+                            <text x="160" y="226" text-anchor="middle" font-size="16" class="red-text">仕</text>
+
+                            <circle cx="200" cy="220" r="18" class="red-piece piece-circle"/>
+                            <text x="200" y="226" text-anchor="middle" font-size="16" class="red-text">帥</text>
+
+                            <circle cx="240" cy="220" r="18" class="red-piece piece-circle"/>
+                            <text x="240" y="226" text-anchor="middle" font-size="16" class="red-text">仕</text>
+
+                            <circle cx="280" cy="220" r="18" class="red-piece piece-circle"/>
+                            <text x="280" y="226" text-anchor="middle" font-size="16" class="red-text">相</text>
+
+                            <circle cx="320" cy="220" r="18" class="red-piece piece-circle"/>
+                            <text x="320" y="226" text-anchor="middle" font-size="16" class="red-text">傌</text>
+
+                            <circle cx="360" cy="220" r="18" class="red-piece piece-circle"/>
+                            <text x="360" y="226" text-anchor="middle" font-size="16" class="red-text">俥</text>
+
+                            <!-- Cannons -->
+                            <circle cx="80" cy="180" r="18" class="red-piece piece-circle"/>
+                            <text x="80" y="186" text-anchor="middle" font-size="16" class="red-text">炮</text>
+
+                            <circle cx="320" cy="180" r="18" class="red-piece piece-circle"/>
+                            <text x="320" y="186" text-anchor="middle" font-size="16" class="red-text">炮</text>
+
+                            <!-- Move arrows showing development -->
+                            <path d="M40,200 L40,100" stroke="#4caf50" stroke-width="3" fill="none" marker-end="url(#arrowhead)"/>
+                            <polygon points="40,95 35,105 45,105" fill="#4caf50"/>
+
+                            <text x="200" y="280" text-anchor="middle" fill="#666" font-size="11">Develop Chariots to open files early!</text>
+                        </svg>
+                        <div class="diagram-caption">Red's starting position - prioritize developing Chariots</div>
+                    </div>
+
+                    <p><strong>Popular Opening Systems:</strong></p>
+                    <ul>
+                        <li><strong>Central Cannon (中炮)</strong> - Move Cannon to center file, aggressive and popular</li>
+                        <li><strong>Screen Horse Defense (屏風馬)</strong> - Develop both Horses to defend, solid setup</li>
+                        <li><strong>Angel's Pawn (仙人指路)</strong> - Advance center Soldier first, flexible</li>
+                        <li><strong>Flying Elephant (飛象局)</strong> - Move Elephant first, defensive approach</li>
+                    </ul>
+                \`
+            },
+            // Lesson 11: Tactics
+            {
+                title: "Tactical Patterns",
+                content: \`
+                    <h3>Essential Tactics (戰術)</h3>
+                    <p>Tactics are short-term combinations that win material or create decisive advantages. Master these patterns!</p>
+
+                    <p><strong>1. The Fork (捉雙)</strong></p>
+                    <p>Attack two pieces simultaneously - your opponent can only save one!</p>
+                    <div class="diagram-container">
+                        <svg viewBox="0 0 280 200" width="280" height="200">
+                            <rect x="20" y="20" width="240" height="160" fill="#f5deb3" rx="5"/>
+
+                            \${[...Array(4)].map((_, i) => \`<line x1="40" y1="\${40 + i * 40}" x2="240" y2="\${40 + i * 40}" stroke="#c4a35a" stroke-width="1.5"/>\`).join('')}
+                            \${[...Array(6)].map((_, i) => \`<line x1="\${40 + i * 40}" y1="40" x2="\${40 + i * 40}" y2="160" stroke="#c4a35a" stroke-width="1.5"/>\`).join('')}
+
+                            <!-- Red Horse forking -->
+                            <circle cx="120" cy="120" r="20" class="red-piece piece-circle"/>
+                            <text x="120" y="127" text-anchor="middle" font-size="18" class="red-text">傌</text>
+
+                            <!-- Target 1: Black Chariot -->
+                            <circle cx="80" cy="40" r="18" class="black-piece piece-circle"/>
+                            <text x="80" y="46" text-anchor="middle" font-size="16" class="black-text">車</text>
+
+                            <!-- Target 2: Black Cannon -->
+                            <circle cx="200" cy="80" r="18" class="black-piece piece-circle"/>
+                            <text x="200" y="86" text-anchor="middle" font-size="16" class="black-text">砲</text>
+
+                            <!-- Fork lines -->
+                            <line x1="120" y1="100" x2="80" y2="55" stroke="#f44336" stroke-width="2" stroke-dasharray="5,3"/>
+                            <line x1="140" y1="105" x2="185" y2="80" stroke="#f44336" stroke-width="2" stroke-dasharray="5,3"/>
+                        </svg>
+                        <div class="diagram-caption">Horse fork - attacks both Chariot and Cannon!</div>
+                    </div>
+
+                    <p><strong>2. The Pin (牽制)</strong></p>
+                    <p>A piece cannot move because it would expose a more valuable piece behind it.</p>
+
+                    <p><strong>3. Discovered Attack (抽將/抽吃)</strong></p>
+                    <p>Move one piece to reveal an attack by another piece behind it.</p>
+                    <div class="diagram-container">
+                        <svg viewBox="0 0 320 160" width="320" height="160">
+                            <rect x="20" y="20" width="280" height="120" fill="#f5deb3" rx="5"/>
+
+                            <line x1="40" y1="80" x2="280" y2="80" stroke="#c4a35a" stroke-width="1.5"/>
+                            \${[...Array(7)].map((_, i) => \`<line x1="\${40 + i * 40}" y1="40" x2="\${40 + i * 40}" y2="120" stroke="#c4a35a" stroke-width="1.5"/>\`).join('')}
+
+                            <!-- Red Chariot behind -->
+                            <circle cx="40" cy="80" r="18" class="red-piece piece-circle"/>
+                            <text x="40" y="86" text-anchor="middle" font-size="16" class="red-text">俥</text>
+
+                            <!-- Red Horse in front (will move) -->
+                            <circle cx="120" cy="80" r="18" class="red-piece piece-circle"/>
+                            <text x="120" y="86" text-anchor="middle" font-size="16" class="red-text">傌</text>
+
+                            <!-- Move arrow for Horse -->
+                            <path d="M138,80 Q160,50 170,40" stroke="#4caf50" stroke-width="2" fill="none"/>
+                            <polygon points="175,38 165,42 168,52" fill="#4caf50"/>
+
+                            <!-- Black General (target of discovered check) -->
+                            <circle cx="280" cy="80" r="18" class="black-piece piece-circle"/>
+                            <text x="280" y="86" text-anchor="middle" font-size="16" class="black-text">將</text>
+
+                            <!-- Discovered attack line -->
+                            <line x1="60" y1="80" x2="258" y2="80" stroke="#f44336" stroke-width="2" stroke-dasharray="8,4"/>
+
+                            <text x="200" y="130" text-anchor="middle" fill="#666" font-size="10">Horse moves, revealing Chariot's attack on General!</text>
+                        </svg>
+                        <div class="diagram-caption">Discovered check - Horse moves and Chariot checks the General</div>
+                    </div>
+
+                    <p><strong>4. Double Attack (雙重威脅)</strong></p>
+                    <p>Create two threats at once - checking while attacking another piece is devastating!</p>
+
+                    <p><strong>Key Tactical Tips:</strong></p>
+                    <ul>
+                        <li>Always look for <span class="highlight">undefended pieces</span></li>
+                        <li>Check if your opponent's pieces are <span class="highlight">lined up</span> for forks or pins</li>
+                        <li>Use <span class="highlight">checks</span> to gain tempo and set up combinations</li>
+                        <li>The <span class="highlight">Cannon</span> is excellent for discovered attacks</li>
+                    </ul>
+                \`
+            },
+            // Lesson 12: Checkmate Patterns
+            {
+                title: "Checkmate Patterns",
+                content: \`
+                    <h3>Common Checkmate Patterns (殺法)</h3>
+                    <p>Learning these classic checkmate patterns will help you finish games and recognize threats!</p>
+
+                    <p><strong>1. Chariot Mate (白臉將殺)</strong></p>
+                    <p>The most basic checkmate - use the Chariot to deliver the final blow.</p>
+                    <div class="diagram-container">
+                        <svg viewBox="0 0 200 200" width="200" height="200">
+                            <rect x="20" y="20" width="160" height="160" fill="#f5deb3" rx="5"/>
+
+                            <!-- Palace lines -->
+                            <line x1="40" y1="40" x2="160" y2="40" stroke="#c4a35a" stroke-width="1.5"/>
+                            <line x1="40" y1="100" x2="160" y2="100" stroke="#c4a35a" stroke-width="1.5"/>
+                            <line x1="40" y1="160" x2="160" y2="160" stroke="#c4a35a" stroke-width="1.5"/>
+                            <line x1="40" y1="40" x2="40" y2="160" stroke="#c4a35a" stroke-width="1.5"/>
+                            <line x1="100" y1="40" x2="100" y2="160" stroke="#c4a35a" stroke-width="1.5"/>
+                            <line x1="160" y1="40" x2="160" y2="160" stroke="#c4a35a" stroke-width="1.5"/>
+                            <line x1="40" y1="40" x2="160" y2="160" stroke="#c4a35a" stroke-width="1"/>
+                            <line x1="160" y1="40" x2="40" y2="160" stroke="#c4a35a" stroke-width="1"/>
+
+                            <!-- Black General trapped -->
+                            <circle cx="100" cy="40" r="20" class="black-piece piece-circle"/>
+                            <text x="100" y="47" text-anchor="middle" font-size="18" class="black-text">將</text>
+
+                            <!-- Red Chariot delivering checkmate -->
+                            <circle cx="100" cy="100" r="20" class="red-piece piece-circle"/>
+                            <text x="100" y="107" text-anchor="middle" font-size="18" class="red-text">俥</text>
+
+                            <!-- Checkmate indicator -->
+                            <text x="100" y="180" text-anchor="middle" fill="#f44336" font-size="14" font-weight="bold">CHECKMATE!</text>
+                        </svg>
+                        <div class="diagram-caption">Back-rank Chariot mate</div>
+                    </div>
+
+                    <p><strong>2. Double Chariot Mate (雙車殺)</strong></p>
+                    <p>Two Chariots working together create an unstoppable attack.</p>
+
+                    <p><strong>3. Cannon + Chariot Mate (重炮殺)</strong></p>
+                    <p>The "Heavy Cannon" - Cannon uses the Chariot (or another piece) as a screen.</p>
+                    <div class="diagram-container">
+                        <svg viewBox="0 0 200 200" width="200" height="200">
+                            <rect x="20" y="20" width="160" height="160" fill="#f5deb3" rx="5"/>
+
+                            <!-- Palace lines -->
+                            <line x1="40" y1="40" x2="160" y2="40" stroke="#c4a35a" stroke-width="1.5"/>
+                            <line x1="40" y1="100" x2="160" y2="100" stroke="#c4a35a" stroke-width="1.5"/>
+                            <line x1="40" y1="160" x2="160" y2="160" stroke="#c4a35a" stroke-width="1.5"/>
+                            <line x1="40" y1="40" x2="40" y2="160" stroke="#c4a35a" stroke-width="1.5"/>
+                            <line x1="100" y1="40" x2="100" y2="160" stroke="#c4a35a" stroke-width="1.5"/>
+                            <line x1="160" y1="40" x2="160" y2="160" stroke="#c4a35a" stroke-width="1.5"/>
+
+                            <!-- Black General -->
+                            <circle cx="100" cy="40" r="18" class="black-piece piece-circle"/>
+                            <text x="100" y="46" text-anchor="middle" font-size="16" class="black-text">將</text>
+
+                            <!-- Red Chariot as screen -->
+                            <circle cx="100" cy="100" r="18" class="red-piece piece-circle"/>
+                            <text x="100" y="106" text-anchor="middle" font-size="16" class="red-text">俥</text>
+
+                            <!-- Red Cannon behind -->
+                            <circle cx="100" cy="160" r="18" class="red-piece piece-circle"/>
+                            <text x="100" y="166" text-anchor="middle" font-size="16" class="red-text">炮</text>
+
+                            <!-- Attack line -->
+                            <line x1="100" y1="140" x2="100" y2="60" stroke="#f44336" stroke-width="2" stroke-dasharray="5,3"/>
+                        </svg>
+                        <div class="diagram-caption">Heavy Cannon mate - Cannon uses Chariot as screen</div>
+                    </div>
+
+                    <p><strong>4. Iron Bolt Checkmate (鉄門栓殺)</strong></p>
+                    <p>Chariot controls the file while Cannon or Horse delivers checkmate from the side.</p>
+
+                    <p><strong>5. Double Cannon Mate (雙炮殺)</strong></p>
+                    <p>One Cannon serves as the screen for the other - deadly!</p>
+
+                    <p><strong>Remember:</strong></p>
+                    <ul>
+                        <li>Look for ways to <span class="highlight">restrict the General's movement</span> first</li>
+                        <li><span class="highlight">Cannons near the palace</span> are especially dangerous</li>
+                        <li>Use the <span class="highlight">Flying General rule</span> tactically - your General can help block escape!</li>
+                    </ul>
+                \`
+            },
+            // Lesson 13: Defensive Strategy
+            {
+                title: "Defensive Strategy",
+                content: \`
+                    <h3>Defensive Techniques (防守)</h3>
+                    <p>A strong defense is the foundation of good play. Learn to protect your General and counter-attack!</p>
+
+                    <p><strong>Palace Defense Formations:</strong></p>
+                    <div class="diagram-container">
+                        <svg viewBox="0 0 400 180" width="400" height="180">
+                            <rect x="20" y="20" width="160" height="140" fill="#f5deb3" rx="5"/>
+                            <rect x="220" y="20" width="160" height="140" fill="#f5deb3" rx="5"/>
+
+                            <!-- Left palace - Solid formation -->
+                            <line x1="40" y1="40" x2="160" y2="40" stroke="#c4a35a" stroke-width="1.5"/>
+                            <line x1="40" y1="90" x2="160" y2="90" stroke="#c4a35a" stroke-width="1.5"/>
+                            <line x1="40" y1="140" x2="160" y2="140" stroke="#c4a35a" stroke-width="1.5"/>
+                            <line x1="40" y1="40" x2="40" y2="140" stroke="#c4a35a" stroke-width="1.5"/>
+                            <line x1="100" y1="40" x2="100" y2="140" stroke="#c4a35a" stroke-width="1.5"/>
+                            <line x1="160" y1="40" x2="160" y2="140" stroke="#c4a35a" stroke-width="1.5"/>
+                            <line x1="40" y1="40" x2="160" y2="140" stroke="#c4a35a" stroke-width="1"/>
+                            <line x1="160" y1="40" x2="40" y2="140" stroke="#c4a35a" stroke-width="1"/>
+
+                            <!-- Solid formation pieces -->
+                            <circle cx="100" cy="140" r="16" class="red-piece piece-circle"/>
+                            <text x="100" y="146" text-anchor="middle" font-size="14" class="red-text">帥</text>
+                            <circle cx="60" cy="90" r="14" class="red-piece piece-circle"/>
+                            <text x="60" y="95" text-anchor="middle" font-size="12" class="red-text">仕</text>
+                            <circle cx="140" cy="90" r="14" class="red-piece piece-circle"/>
+                            <text x="140" y="95" text-anchor="middle" font-size="12" class="red-text">仕</text>
+
+                            <text x="100" y="170" text-anchor="middle" fill="#666" font-size="10">"Solid" - Both Advisors protect</text>
+
+                            <!-- Right palace - Flower formation -->
+                            <line x1="240" y1="40" x2="360" y2="40" stroke="#c4a35a" stroke-width="1.5"/>
+                            <line x1="240" y1="90" x2="360" y2="90" stroke="#c4a35a" stroke-width="1.5"/>
+                            <line x1="240" y1="140" x2="360" y2="140" stroke="#c4a35a" stroke-width="1.5"/>
+                            <line x1="240" y1="40" x2="240" y2="140" stroke="#c4a35a" stroke-width="1.5"/>
+                            <line x1="300" y1="40" x2="300" y2="140" stroke="#c4a35a" stroke-width="1.5"/>
+                            <line x1="360" y1="40" x2="360" y2="140" stroke="#c4a35a" stroke-width="1.5"/>
+                            <line x1="240" y1="40" x2="360" y2="140" stroke="#c4a35a" stroke-width="1"/>
+                            <line x1="360" y1="40" x2="240" y2="140" stroke="#c4a35a" stroke-width="1"/>
+
+                            <!-- Flower formation pieces -->
+                            <circle cx="300" cy="90" r="16" class="red-piece piece-circle"/>
+                            <text x="300" y="96" text-anchor="middle" font-size="14" class="red-text">帥</text>
+                            <circle cx="260" cy="140" r="14" class="red-piece piece-circle"/>
+                            <text x="260" y="145" text-anchor="middle" font-size="12" class="red-text">仕</text>
+                            <circle cx="340" cy="140" r="14" class="red-piece piece-circle"/>
+                            <text x="340" y="145" text-anchor="middle" font-size="12" class="red-text">仕</text>
+
+                            <text x="300" y="170" text-anchor="middle" fill="#666" font-size="10">"Flower" - General in center</text>
+                        </svg>
+                        <div class="diagram-caption">Two common defensive formations</div>
+                    </div>
+
+                    <p><strong>Key Defensive Principles:</strong></p>
+                    <ul>
+                        <li><span class="highlight">Keep Advisors connected</span> to the General when possible</li>
+                        <li><span class="highlight">Don't move Elephants unnecessarily</span> - they guard key defensive points</li>
+                        <li><span class="highlight">A Chariot on the back rank</span> is worth keeping for defense</li>
+                        <li>Watch for <span class="highlight">back-rank weaknesses</span> - don't leave your General exposed</li>
+                    </ul>
+
+                    <p><strong>Counter-Attack Strategies:</strong></p>
+                    <ul>
+                        <li><strong>The best defense is a good offense</strong> - create threats while defending</li>
+                        <li>Use <span class="highlight">checks to buy time</span> and reposition</li>
+                        <li>Look for <span class="highlight">piece exchanges</span> that simplify when you're under pressure</li>
+                        <li><span class="highlight">Trade attacking pieces</span> to relieve pressure on your General</li>
+                    </ul>
+
+                    <p><strong>Common Defensive Mistakes:</strong></p>
+                    <ul>
+                        <li>Moving the General too early (exposes it to attacks)</li>
+                        <li>Trading both Advisors (weakens palace defense)</li>
+                        <li>Ignoring threats to focus only on attack</li>
+                        <li>Not keeping at least one Chariot for defense</li>
+                    </ul>
+                \`
+            },
+            // Lesson 14: Endgame Strategy
+            {
+                title: "Endgame Strategy",
+                content: \`
+                    <h3>Endgame Principles (殘局)</h3>
+                    <p>The endgame is where games are won or lost. With fewer pieces, every move counts!</p>
+
+                    <p><strong>Piece Values Change in Endgame:</strong></p>
+                    <ul>
+                        <li><span class="highlight">Chariot</span> - Remains the strongest piece, even more dominant</li>
+                        <li><span class="highlight">Cannon</span> - Becomes weaker (fewer screens available)</li>
+                        <li><span class="highlight">Horse</span> - Becomes stronger (harder to block with fewer pieces)</li>
+                        <li><span class="highlight">Soldier</span> - Can be very powerful if advanced!</li>
+                    </ul>
+
+                    <div class="diagram-container">
+                        <svg viewBox="0 0 300 200" width="300" height="200">
+                            <rect x="20" y="20" width="260" height="160" fill="#f5deb3" rx="5"/>
+
+                            \${[...Array(4)].map((_, i) => \`<line x1="40" y1="\${40 + i * 40}" x2="260" y2="\${40 + i * 40}" stroke="#c4a35a" stroke-width="1.5"/>\`).join('')}
+                            \${[...Array(6)].map((_, i) => \`<line x1="\${40 + i * 44}" y1="40" x2="\${40 + i * 44}" y2="160" stroke="#c4a35a" stroke-width="1.5"/>\`).join('')}
+
+                            <!-- Black General in palace -->
+                            <circle cx="150" cy="40" r="18" class="black-piece piece-circle"/>
+                            <text x="150" y="46" text-anchor="middle" font-size="16" class="black-text">將</text>
+
+                            <!-- Red pieces: Chariot + Soldier -->
+                            <circle cx="150" cy="120" r="18" class="red-piece piece-circle"/>
+                            <text x="150" y="126" text-anchor="middle" font-size="16" class="red-text">俥</text>
+
+                            <circle cx="194" cy="80" r="16" class="red-piece piece-circle"/>
+                            <text x="194" y="86" text-anchor="middle" font-size="14" class="red-text">兵</text>
+
+                            <!-- Red General -->
+                            <circle cx="150" cy="160" r="18" class="red-piece piece-circle"/>
+                            <text x="150" y="166" text-anchor="middle" font-size="16" class="red-text">帥</text>
+
+                            <text x="150" y="190" text-anchor="middle" fill="#666" font-size="10">Chariot + Soldier is often enough to win</text>
+                        </svg>
+                        <div class="diagram-caption">Classic winning endgame: Chariot + advanced Soldier vs lone General</div>
+                    </div>
+
+                    <p><strong>Essential Endgame Knowledge:</strong></p>
+                    <ul>
+                        <li><strong>Chariot + Soldier</strong> vs General = Win (with correct technique)</li>
+                        <li><strong>Single Chariot</strong> vs General = Usually Draw (but can win if General is poorly placed)</li>
+                        <li><strong>Horse + Soldier</strong> vs General = Win (requires skill)</li>
+                        <li><strong>Cannon alone</strong> vs General = Draw (cannot checkmate without screen)</li>
+                    </ul>
+
+                    <p><strong>Endgame Strategies:</strong></p>
+                    <ul>
+                        <li><span class="highlight">Activate your General!</span> In endgame, the General can help attack using the Flying General rule</li>
+                        <li><span class="highlight">Push passed Soldiers</span> - They become very dangerous</li>
+                        <li><span class="highlight">Centralize your pieces</span> - Central positions control more squares</li>
+                        <li><span class="highlight">Cut off the enemy General</span> - Restrict its movement before attacking</li>
+                    </ul>
+
+                    <p><strong>The "Flying General" as a Weapon:</strong></p>
+                    <p>In endgames, you can use your General to control files! If there's no piece between the Generals, the enemy General cannot enter that file.</p>
+
+                    <p><strong>Practice Tip:</strong> Study classic endgame positions. Knowing these patterns will help you convert winning positions and save drawn ones!</p>
+                \`
             }
         ];
 
