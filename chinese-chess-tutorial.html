@@ -1,0 +1,1040 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learn Chinese Chess (Xiangqi) - Interactive Tutorial</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            min-height: 100vh;
+            color: #e8e8e8;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header */
+        header {
+            text-align: center;
+            padding: 40px 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 30px;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, #e94560, #ff6b6b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        header p {
+            color: #a0a0a0;
+            font-size: 1.1rem;
+        }
+
+        .chinese-title {
+            font-size: 1.5rem;
+            color: #e94560;
+            margin-bottom: 5px;
+        }
+
+        /* Chat Container */
+        .chat-container {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .chat-messages {
+            max-height: 600px;
+            overflow-y: auto;
+            padding-right: 10px;
+        }
+
+        .chat-messages::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .chat-messages::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 3px;
+        }
+
+        .chat-messages::-webkit-scrollbar-thumb {
+            background: rgba(233, 69, 96, 0.5);
+            border-radius: 3px;
+        }
+
+        .message {
+            margin-bottom: 20px;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .bot-message {
+            display: flex;
+            gap: 15px;
+        }
+
+        .bot-avatar {
+            width: 45px;
+            height: 45px;
+            background: linear-gradient(135deg, #e94560, #ff6b6b);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+
+        .bot-content {
+            background: rgba(255, 255, 255, 0.08);
+            padding: 20px;
+            border-radius: 0 15px 15px 15px;
+            max-width: calc(100% - 60px);
+            line-height: 1.7;
+        }
+
+        .bot-content h3 {
+            color: #e94560;
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+        }
+
+        .bot-content p {
+            margin-bottom: 15px;
+        }
+
+        .bot-content ul {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .bot-content li {
+            margin-bottom: 8px;
+        }
+
+        .highlight {
+            color: #ff6b6b;
+            font-weight: 600;
+        }
+
+        /* Diagram Container */
+        .diagram-container {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .diagram-container svg {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .diagram-caption {
+            margin-top: 10px;
+            font-size: 0.9rem;
+            color: #a0a0a0;
+            font-style: italic;
+        }
+
+        /* Chess Board Styles */
+        .board-line {
+            stroke: #c4a35a;
+            stroke-width: 1.5;
+        }
+
+        .board-bg {
+            fill: #f5deb3;
+        }
+
+        .river-text {
+            font-family: 'KaiTi', 'SimKai', serif;
+            font-size: 18px;
+            fill: #4a7c59;
+        }
+
+        .palace-line {
+            stroke: #c4a35a;
+            stroke-width: 1;
+        }
+
+        .piece-circle {
+            stroke-width: 2;
+        }
+
+        .red-piece {
+            fill: #fff8dc;
+            stroke: #c41e3a;
+        }
+
+        .black-piece {
+            fill: #fff8dc;
+            stroke: #1a1a1a;
+        }
+
+        .red-text {
+            fill: #c41e3a;
+            font-family: 'KaiTi', 'SimKai', serif;
+            font-weight: bold;
+        }
+
+        .black-text {
+            fill: #1a1a1a;
+            font-family: 'KaiTi', 'SimKai', serif;
+            font-weight: bold;
+        }
+
+        .move-indicator {
+            fill: rgba(76, 175, 80, 0.4);
+            stroke: #4caf50;
+            stroke-width: 2;
+        }
+
+        .move-arrow {
+            stroke: #4caf50;
+            stroke-width: 3;
+            fill: none;
+            marker-end: url(#arrowhead);
+        }
+
+        /* Navigation */
+        .lesson-nav {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+
+        .lesson-btn {
+            padding: 12px 20px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 10px;
+            color: #e8e8e8;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.95rem;
+        }
+
+        .lesson-btn:hover {
+            background: rgba(233, 69, 96, 0.2);
+            border-color: #e94560;
+        }
+
+        .lesson-btn.active {
+            background: linear-gradient(135deg, #e94560, #ff6b6b);
+            border-color: transparent;
+            color: white;
+        }
+
+        /* Progress */
+        .progress-container {
+            margin-bottom: 30px;
+        }
+
+        .progress-bar {
+            height: 6px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #e94560, #ff6b6b);
+            border-radius: 3px;
+            transition: width 0.5s ease;
+        }
+
+        .progress-text {
+            text-align: center;
+            margin-top: 10px;
+            color: #a0a0a0;
+            font-size: 0.9rem;
+        }
+
+        /* Continue Button */
+        .continue-btn {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #e94560, #ff6b6b);
+            border: none;
+            border-radius: 10px;
+            color: white;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 20px;
+        }
+
+        .continue-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(233, 69, 96, 0.3);
+        }
+
+        /* Quick Reference */
+        .quick-ref {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 30px;
+            margin-top: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .quick-ref h2 {
+            color: #e94560;
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+        }
+
+        .piece-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .piece-card {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 15px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .piece-icon {
+            width: 50px;
+            height: 50px;
+            flex-shrink: 0;
+        }
+
+        .piece-info h4 {
+            color: #ff6b6b;
+            margin-bottom: 5px;
+        }
+
+        .piece-info p {
+            font-size: 0.85rem;
+            color: #a0a0a0;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 1.8rem;
+            }
+
+            .chat-container {
+                padding: 20px;
+            }
+
+            .bot-content {
+                padding: 15px;
+            }
+
+            .lesson-btn {
+                padding: 10px 15px;
+                font-size: 0.85rem;
+            }
+        }
+
+        /* Typing indicator */
+        .typing-indicator {
+            display: flex;
+            gap: 5px;
+            padding: 10px 15px;
+        }
+
+        .typing-indicator span {
+            width: 8px;
+            height: 8px;
+            background: #e94560;
+            border-radius: 50%;
+            animation: bounce 1.4s infinite ease-in-out;
+        }
+
+        .typing-indicator span:nth-child(1) { animation-delay: -0.32s; }
+        .typing-indicator span:nth-child(2) { animation-delay: -0.16s; }
+
+        @keyframes bounce {
+            0%, 80%, 100% { transform: scale(0); }
+            40% { transform: scale(1); }
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="chinese-title">象棋教程</div>
+            <h1>Learn Chinese Chess</h1>
+            <p>An interactive guide to mastering Xiangqi</p>
+        </header>
+
+        <div class="progress-container">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+            </div>
+            <div class="progress-text" id="progressText">Lesson 1 of 8</div>
+        </div>
+
+        <nav class="lesson-nav" id="lessonNav">
+            <button class="lesson-btn active" data-lesson="0">Welcome</button>
+            <button class="lesson-btn" data-lesson="1">The Board</button>
+            <button class="lesson-btn" data-lesson="2">General</button>
+            <button class="lesson-btn" data-lesson="3">Advisors</button>
+            <button class="lesson-btn" data-lesson="4">Elephants</button>
+            <button class="lesson-btn" data-lesson="5">Horses</button>
+            <button class="lesson-btn" data-lesson="6">Chariots</button>
+            <button class="lesson-btn" data-lesson="7">Cannons</button>
+            <button class="lesson-btn" data-lesson="8">Soldiers</button>
+            <button class="lesson-btn" data-lesson="9">Rules</button>
+        </nav>
+
+        <div class="chat-container">
+            <div class="chat-messages" id="chatMessages">
+                <!-- Messages will be inserted here -->
+            </div>
+            <button class="continue-btn" id="continueBtn">Continue to Next Lesson</button>
+        </div>
+
+        <div class="quick-ref">
+            <h2>Quick Reference - All Pieces</h2>
+            <div class="piece-grid">
+                <div class="piece-card">
+                    <svg class="piece-icon" viewBox="0 0 50 50">
+                        <circle cx="25" cy="25" r="22" class="red-piece piece-circle"/>
+                        <text x="25" y="32" text-anchor="middle" font-size="20" class="red-text">帥</text>
+                    </svg>
+                    <div class="piece-info">
+                        <h4>General (帥/將)</h4>
+                        <p>Moves 1 space orthogonally, stays in palace</p>
+                    </div>
+                </div>
+                <div class="piece-card">
+                    <svg class="piece-icon" viewBox="0 0 50 50">
+                        <circle cx="25" cy="25" r="22" class="red-piece piece-circle"/>
+                        <text x="25" y="32" text-anchor="middle" font-size="20" class="red-text">仕</text>
+                    </svg>
+                    <div class="piece-info">
+                        <h4>Advisor (仕/士)</h4>
+                        <p>Moves 1 space diagonally, stays in palace</p>
+                    </div>
+                </div>
+                <div class="piece-card">
+                    <svg class="piece-icon" viewBox="0 0 50 50">
+                        <circle cx="25" cy="25" r="22" class="red-piece piece-circle"/>
+                        <text x="25" y="32" text-anchor="middle" font-size="20" class="red-text">相</text>
+                    </svg>
+                    <div class="piece-info">
+                        <h4>Elephant (相/象)</h4>
+                        <p>Moves 2 spaces diagonally, cannot cross river</p>
+                    </div>
+                </div>
+                <div class="piece-card">
+                    <svg class="piece-icon" viewBox="0 0 50 50">
+                        <circle cx="25" cy="25" r="22" class="red-piece piece-circle"/>
+                        <text x="25" y="32" text-anchor="middle" font-size="20" class="red-text">傌</text>
+                    </svg>
+                    <div class="piece-info">
+                        <h4>Horse (傌/馬)</h4>
+                        <p>L-shape move, can be blocked</p>
+                    </div>
+                </div>
+                <div class="piece-card">
+                    <svg class="piece-icon" viewBox="0 0 50 50">
+                        <circle cx="25" cy="25" r="22" class="red-piece piece-circle"/>
+                        <text x="25" y="32" text-anchor="middle" font-size="20" class="red-text">俥</text>
+                    </svg>
+                    <div class="piece-info">
+                        <h4>Chariot (俥/車)</h4>
+                        <p>Moves any distance orthogonally</p>
+                    </div>
+                </div>
+                <div class="piece-card">
+                    <svg class="piece-icon" viewBox="0 0 50 50">
+                        <circle cx="25" cy="25" r="22" class="red-piece piece-circle"/>
+                        <text x="25" y="32" text-anchor="middle" font-size="20" class="red-text">炮</text>
+                    </svg>
+                    <div class="piece-info">
+                        <h4>Cannon (炮/砲)</h4>
+                        <p>Moves orthogonally, jumps to capture</p>
+                    </div>
+                </div>
+                <div class="piece-card">
+                    <svg class="piece-icon" viewBox="0 0 50 50">
+                        <circle cx="25" cy="25" r="22" class="red-piece piece-circle"/>
+                        <text x="25" y="32" text-anchor="middle" font-size="20" class="red-text">兵</text>
+                    </svg>
+                    <div class="piece-info">
+                        <h4>Soldier (兵/卒)</h4>
+                        <p>Forward only, sideways after crossing river</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Lesson content with diagrams
+        const lessons = [
+            // Lesson 0: Welcome
+            {
+                title: "Welcome to Chinese Chess!",
+                content: `
+                    <h3>Welcome to Chinese Chess! 欢迎学习象棋!</h3>
+                    <p>Hello! I'm excited to teach you <span class="highlight">Xiangqi (象棋)</span>, also known as Chinese Chess. This ancient game has been played for over a thousand years and remains one of the most popular board games in the world.</p>
+                    <p>Chinese Chess is similar to Western Chess in some ways - you have two armies facing each other, and the goal is to checkmate the opponent's king (called the <span class="highlight">General</span>). But it has unique features that make it fascinating:</p>
+                    <ul>
+                        <li><strong>The River</strong> - A boundary that affects piece movement</li>
+                        <li><strong>The Palace</strong> - A special zone for the General and Advisors</li>
+                        <li><strong>The Cannon</strong> - A unique piece that jumps to capture</li>
+                        <li><strong>Pieces on intersections</strong> - Not inside squares!</li>
+                    </ul>
+                    <p>Let's begin your journey to mastering this beautiful game!</p>
+                `
+            },
+            // Lesson 1: The Board
+            {
+                title: "The Board",
+                content: `
+                    <h3>Understanding the Board</h3>
+                    <p>The Chinese Chess board is a <span class="highlight">9×10 grid</span> of lines. Unlike Western Chess where pieces sit inside squares, in Xiangqi pieces are placed on the <span class="highlight">intersections</span> of lines.</p>
+                    <div class="diagram-container">
+                        <svg viewBox="0 0 400 440" width="400" height="440">
+                            <!-- Board background -->
+                            <rect x="20" y="20" width="360" height="400" class="board-bg" rx="5"/>
+
+                            <!-- Horizontal lines -->
+                            ${[...Array(10)].map((_, i) => `<line x1="40" y1="${40 + i * 40}" x2="360" y2="${40 + i * 40}" class="board-line"/>`).join('')}
+
+                            <!-- Vertical lines (with river gap) -->
+                            ${[...Array(9)].map((_, i) => {
+                                if (i === 0 || i === 8) {
+                                    return `<line x1="${40 + i * 40}" y1="40" x2="${40 + i * 40}" y2="400" class="board-line"/>`;
+                                }
+                                return `
+                                    <line x1="${40 + i * 40}" y1="40" x2="${40 + i * 40}" y2="200" class="board-line"/>
+                                    <line x1="${40 + i * 40}" y1="240" x2="${40 + i * 40}" y2="400" class="board-line"/>
+                                `;
+                            }).join('')}
+
+                            <!-- Palace diagonals - Top -->
+                            <line x1="160" y1="40" x2="240" y2="120" class="palace-line"/>
+                            <line x1="240" y1="40" x2="160" y2="120" class="palace-line"/>
+
+                            <!-- Palace diagonals - Bottom -->
+                            <line x1="160" y1="320" x2="240" y2="400" class="palace-line"/>
+                            <line x1="240" y1="320" x2="160" y2="400" class="palace-line"/>
+
+                            <!-- River text -->
+                            <text x="100" y="225" class="river-text">楚 河</text>
+                            <text x="260" y="225" class="river-text">漢 界</text>
+
+                            <!-- Labels -->
+                            <text x="200" y="15" text-anchor="middle" fill="#666" font-size="12">Black's Side</text>
+                            <text x="200" y="435" text-anchor="middle" fill="#666" font-size="12">Red's Side</text>
+
+                            <!-- Palace highlight -->
+                            <rect x="158" y="38" width="84" height="84" fill="rgba(233, 69, 96, 0.1)" stroke="#e94560" stroke-width="2" stroke-dasharray="5,5"/>
+                            <rect x="158" y="318" width="84" height="84" fill="rgba(233, 69, 96, 0.1)" stroke="#e94560" stroke-width="2" stroke-dasharray="5,5"/>
+                        </svg>
+                        <div class="diagram-caption">The Xiangqi board with the River (楚河 漢界) in the middle and Palaces highlighted</div>
+                    </div>
+                    <p>Key features of the board:</p>
+                    <ul>
+                        <li><strong>The River (楚河 漢界)</strong> - The blank space in the middle. It affects how Elephants and Soldiers move.</li>
+                        <li><strong>The Palace</strong> - The 3×3 area marked with diagonal lines. The General and Advisors must stay inside.</li>
+                        <li><strong>90 intersection points</strong> - That's where all the action happens!</li>
+                    </ul>
+                `
+            },
+            // Lesson 2: General
+            {
+                title: "The General",
+                content: `
+                    <h3>The General (帥/將)</h3>
+                    <p>The General is the <span class="highlight">most important piece</span> - like the King in Western Chess. If your General is checkmated, you lose!</p>
+                    <p>Red's General is called <span class="highlight">帥 (Shuài)</span> and Black's is <span class="highlight">將 (Jiàng)</span>.</p>
+                    <div class="diagram-container">
+                        <svg viewBox="0 0 200 200" width="200" height="200">
+                            <!-- Mini palace -->
+                            <rect x="20" y="20" width="160" height="160" fill="#f5deb3" rx="5"/>
+                            <line x1="40" y1="40" x2="160" y2="40" stroke="#c4a35a" stroke-width="1.5"/>
+                            <line x1="40" y1="100" x2="160" y2="100" stroke="#c4a35a" stroke-width="1.5"/>
+                            <line x1="40" y1="160" x2="160" y2="160" stroke="#c4a35a" stroke-width="1.5"/>
+                            <line x1="40" y1="40" x2="40" y2="160" stroke="#c4a35a" stroke-width="1.5"/>
+                            <line x1="100" y1="40" x2="100" y2="160" stroke="#c4a35a" stroke-width="1.5"/>
+                            <line x1="160" y1="40" x2="160" y2="160" stroke="#c4a35a" stroke-width="1.5"/>
+                            <line x1="40" y1="40" x2="160" y2="160" stroke="#c4a35a" stroke-width="1"/>
+                            <line x1="160" y1="40" x2="40" y2="160" stroke="#c4a35a" stroke-width="1"/>
+
+                            <!-- Move indicators -->
+                            <circle cx="100" cy="40" r="12" class="move-indicator"/>
+                            <circle cx="40" cy="100" r="12" class="move-indicator"/>
+                            <circle cx="160" cy="100" r="12" class="move-indicator"/>
+                            <circle cx="100" cy="160" r="12" class="move-indicator"/>
+
+                            <!-- General piece -->
+                            <circle cx="100" cy="100" r="25" class="red-piece piece-circle"/>
+                            <text x="100" y="108" text-anchor="middle" font-size="24" class="red-text">帥</text>
+                        </svg>
+                        <div class="diagram-caption">The General moves one space orthogonally (up, down, left, or right)</div>
+                    </div>
+                    <p><strong>Movement Rules:</strong></p>
+                    <ul>
+                        <li>Moves <span class="highlight">one space</span> at a time</li>
+                        <li>Can only move <span class="highlight">orthogonally</span> (up, down, left, right - not diagonally)</li>
+                        <li>Must <span class="highlight">stay inside the Palace</span> (the 3×3 zone)</li>
+                    </ul>
+                    <p><strong>Flying General Rule:</strong> The two Generals can never face each other on the same column with no pieces between them. This is called "Flying General" and is an illegal position!</p>
+                `
+            },
+            // Lesson 3: Advisors
+            {
+                title: "The Advisors",
+                content: `
+                    <h3>The Advisors (仕/士)</h3>
+                    <p>Each side has <span class="highlight">two Advisors</span> that protect the General. They are also confined to the Palace.</p>
+                    <p>Red's Advisors are <span class="highlight">仕 (Shì)</span> and Black's are <span class="highlight">士 (Shì)</span>.</p>
+                    <div class="diagram-container">
+                        <svg viewBox="0 0 200 200" width="200" height="200">
+                            <!-- Mini palace -->
+                            <rect x="20" y="20" width="160" height="160" fill="#f5deb3" rx="5"/>
+                            <line x1="40" y1="40" x2="160" y2="40" stroke="#c4a35a" stroke-width="1.5"/>
+                            <line x1="40" y1="100" x2="160" y2="100" stroke="#c4a35a" stroke-width="1.5"/>
+                            <line x1="40" y1="160" x2="160" y2="160" stroke="#c4a35a" stroke-width="1.5"/>
+                            <line x1="40" y1="40" x2="40" y2="160" stroke="#c4a35a" stroke-width="1.5"/>
+                            <line x1="100" y1="40" x2="100" y2="160" stroke="#c4a35a" stroke-width="1.5"/>
+                            <line x1="160" y1="40" x2="160" y2="160" stroke="#c4a35a" stroke-width="1.5"/>
+                            <line x1="40" y1="40" x2="160" y2="160" stroke="#c4a35a" stroke-width="1"/>
+                            <line x1="160" y1="40" x2="40" y2="160" stroke="#c4a35a" stroke-width="1"/>
+
+                            <!-- Move indicators (diagonal) -->
+                            <circle cx="40" cy="40" r="12" class="move-indicator"/>
+                            <circle cx="160" cy="40" r="12" class="move-indicator"/>
+                            <circle cx="40" cy="160" r="12" class="move-indicator"/>
+                            <circle cx="160" cy="160" r="12" class="move-indicator"/>
+
+                            <!-- Advisor piece -->
+                            <circle cx="100" cy="100" r="25" class="red-piece piece-circle"/>
+                            <text x="100" y="108" text-anchor="middle" font-size="24" class="red-text">仕</text>
+                        </svg>
+                        <div class="diagram-caption">The Advisor moves one space diagonally along the palace lines</div>
+                    </div>
+                    <p><strong>Movement Rules:</strong></p>
+                    <ul>
+                        <li>Moves <span class="highlight">one space diagonally</span></li>
+                        <li>Must <span class="highlight">stay inside the Palace</span></li>
+                        <li>Can only occupy <span class="highlight">5 positions</span>: the center and four corners of the Palace</li>
+                    </ul>
+                    <p><strong>Strategy Tip:</strong> Advisors are primarily defensive pieces. Keep them near your General to form a protective formation!</p>
+                `
+            },
+            // Lesson 4: Elephants
+            {
+                title: "The Elephants",
+                content: `
+                    <h3>The Elephants (相/象)</h3>
+                    <p>Each side has <span class="highlight">two Elephants</span>. They are defensive pieces that cannot cross the river.</p>
+                    <p>Red's Elephants are <span class="highlight">相 (Xiàng)</span> and Black's are <span class="highlight">象 (Xiàng)</span>.</p>
+                    <div class="diagram-container">
+                        <svg viewBox="0 0 280 280" width="280" height="280">
+                            <!-- Board section -->
+                            <rect x="20" y="20" width="240" height="240" fill="#f5deb3" rx="5"/>
+
+                            <!-- Grid lines -->
+                            ${[...Array(5)].map((_, i) => `<line x1="40" y1="${60 + i * 40}" x2="240" y2="${60 + i * 40}" stroke="#c4a35a" stroke-width="1.5"/>`).join('')}
+                            ${[...Array(5)].map((_, i) => `<line x1="${60 + i * 40}" y1="60" x2="${60 + i * 40}" y2="220" stroke="#c4a35a" stroke-width="1.5"/>`).join('')}
+
+                            <!-- Move indicators (2 spaces diagonal) -->
+                            <circle cx="60" cy="60" r="12" class="move-indicator"/>
+                            <circle cx="220" cy="60" r="12" class="move-indicator"/>
+                            <circle cx="60" cy="220" r="12" class="move-indicator"/>
+                            <circle cx="220" cy="220" r="12" class="move-indicator"/>
+
+                            <!-- Blocking point indicators -->
+                            <circle cx="100" cy="100" r="6" fill="rgba(255, 152, 0, 0.6)" stroke="#ff9800" stroke-width="2"/>
+                            <circle cx="180" cy="100" r="6" fill="rgba(255, 152, 0, 0.6)" stroke="#ff9800" stroke-width="2"/>
+                            <circle cx="100" cy="180" r="6" fill="rgba(255, 152, 0, 0.6)" stroke="#ff9800" stroke-width="2"/>
+                            <circle cx="180" cy="180" r="6" fill="rgba(255, 152, 0, 0.6)" stroke="#ff9800" stroke-width="2"/>
+
+                            <!-- Elephant piece -->
+                            <circle cx="140" cy="140" r="25" class="red-piece piece-circle"/>
+                            <text x="140" y="148" text-anchor="middle" font-size="24" class="red-text">相</text>
+
+                            <!-- Legend -->
+                            <text x="150" y="265" text-anchor="middle" fill="#666" font-size="10">Orange dots = blocking points ("Elephant's eye")</text>
+                        </svg>
+                        <div class="diagram-caption">The Elephant moves exactly 2 spaces diagonally (田 pattern)</div>
+                    </div>
+                    <p><strong>Movement Rules:</strong></p>
+                    <ul>
+                        <li>Moves exactly <span class="highlight">two spaces diagonally</span></li>
+                        <li><span class="highlight">Cannot cross the River</span> - purely defensive</li>
+                        <li>Can be <span class="highlight">blocked</span> - if a piece is on the first diagonal square (the "elephant's eye" 象眼), the Elephant cannot move in that direction</li>
+                    </ul>
+                    <p><strong>Strategy Tip:</strong> Elephants guard specific points on your side. They work well with Advisors to protect the General!</p>
+                `
+            },
+            // Lesson 5: Horses
+            {
+                title: "The Horses",
+                content: `
+                    <h3>The Horses (傌/馬)</h3>
+                    <p>Each side has <span class="highlight">two Horses</span>. They move similar to Knights in Western Chess, but with an important difference!</p>
+                    <p>Red's Horses are <span class="highlight">傌 (Mǎ)</span> and Black's are <span class="highlight">馬 (Mǎ)</span>.</p>
+                    <div class="diagram-container">
+                        <svg viewBox="0 0 280 280" width="280" height="280">
+                            <!-- Board section -->
+                            <rect x="20" y="20" width="240" height="240" fill="#f5deb3" rx="5"/>
+
+                            <!-- Grid lines -->
+                            ${[...Array(5)].map((_, i) => `<line x1="40" y1="${60 + i * 40}" x2="240" y2="${60 + i * 40}" stroke="#c4a35a" stroke-width="1.5"/>`).join('')}
+                            ${[...Array(5)].map((_, i) => `<line x1="${60 + i * 40}" y1="60" x2="${60 + i * 40}" y2="220" stroke="#c4a35a" stroke-width="1.5"/>`).join('')}
+
+                            <!-- Move indicators (L-shape) -->
+                            <circle cx="100" cy="60" r="12" class="move-indicator"/>
+                            <circle cx="180" cy="60" r="12" class="move-indicator"/>
+                            <circle cx="60" cy="100" r="12" class="move-indicator"/>
+                            <circle cx="220" cy="100" r="12" class="move-indicator"/>
+                            <circle cx="60" cy="180" r="12" class="move-indicator"/>
+                            <circle cx="220" cy="180" r="12" class="move-indicator"/>
+                            <circle cx="100" cy="220" r="12" class="move-indicator"/>
+                            <circle cx="180" cy="220" r="12" class="move-indicator"/>
+
+                            <!-- Blocking point indicators -->
+                            <circle cx="140" cy="100" r="6" fill="rgba(255, 152, 0, 0.6)" stroke="#ff9800" stroke-width="2"/>
+                            <circle cx="100" cy="140" r="6" fill="rgba(255, 152, 0, 0.6)" stroke="#ff9800" stroke-width="2"/>
+                            <circle cx="180" cy="140" r="6" fill="rgba(255, 152, 0, 0.6)" stroke="#ff9800" stroke-width="2"/>
+                            <circle cx="140" cy="180" r="6" fill="rgba(255, 152, 0, 0.6)" stroke="#ff9800" stroke-width="2"/>
+
+                            <!-- Horse piece -->
+                            <circle cx="140" cy="140" r="25" class="red-piece piece-circle"/>
+                            <text x="140" y="148" text-anchor="middle" font-size="24" class="red-text">傌</text>
+
+                            <!-- Legend -->
+                            <text x="150" y="265" text-anchor="middle" fill="#666" font-size="10">Orange dots = blocking points ("Horse's leg")</text>
+                        </svg>
+                        <div class="diagram-caption">The Horse moves in an L-shape but can be blocked</div>
+                    </div>
+                    <p><strong>Movement Rules:</strong></p>
+                    <ul>
+                        <li>Moves in an <span class="highlight">L-shape</span>: one step orthogonally, then one step diagonally outward</li>
+                        <li><span class="highlight">Can be blocked!</span> Unlike Western Chess Knights, if a piece is adjacent to the Horse in the direction it wants to go, the Horse cannot move that way (called "hobbling the horse's leg" 蹩馬腿)</li>
+                        <li>Can cross the River freely</li>
+                    </ul>
+                    <p><strong>Strategy Tip:</strong> Horses are powerful attackers but vulnerable to blocking. Position them carefully and watch for pieces that might "hobble" them!</p>
+                `
+            },
+            // Lesson 6: Chariots
+            {
+                title: "The Chariots",
+                content: `
+                    <h3>The Chariots (俥/車)</h3>
+                    <p>Each side has <span class="highlight">two Chariots</span>. They are the <span class="highlight">most powerful pieces</span> in Chinese Chess!</p>
+                    <p>Red's Chariots are <span class="highlight">俥 (Jū)</span> and Black's are <span class="highlight">車 (Jū)</span>.</p>
+                    <div class="diagram-container">
+                        <svg viewBox="0 0 280 280" width="280" height="280">
+                            <!-- Board section -->
+                            <rect x="20" y="20" width="240" height="240" fill="#f5deb3" rx="5"/>
+
+                            <!-- Grid lines -->
+                            ${[...Array(5)].map((_, i) => `<line x1="40" y1="${60 + i * 40}" x2="240" y2="${60 + i * 40}" stroke="#c4a35a" stroke-width="1.5"/>`).join('')}
+                            ${[...Array(5)].map((_, i) => `<line x1="${60 + i * 40}" y1="60" x2="${60 + i * 40}" y2="220" stroke="#c4a35a" stroke-width="1.5"/>`).join('')}
+
+                            <!-- Move paths -->
+                            <line x1="140" y1="60" x2="140" y2="120" stroke="#4caf50" stroke-width="4" stroke-linecap="round"/>
+                            <line x1="140" y1="160" x2="140" y2="220" stroke="#4caf50" stroke-width="4" stroke-linecap="round"/>
+                            <line x1="60" y1="140" x2="120" y2="140" stroke="#4caf50" stroke-width="4" stroke-linecap="round"/>
+                            <line x1="160" y1="140" x2="220" y2="140" stroke="#4caf50" stroke-width="4" stroke-linecap="round"/>
+
+                            <!-- Move indicators -->
+                            <circle cx="140" cy="60" r="10" class="move-indicator"/>
+                            <circle cx="140" cy="100" r="10" class="move-indicator"/>
+                            <circle cx="140" cy="180" r="10" class="move-indicator"/>
+                            <circle cx="140" cy="220" r="10" class="move-indicator"/>
+                            <circle cx="60" cy="140" r="10" class="move-indicator"/>
+                            <circle cx="100" cy="140" r="10" class="move-indicator"/>
+                            <circle cx="180" cy="140" r="10" class="move-indicator"/>
+                            <circle cx="220" cy="140" r="10" class="move-indicator"/>
+
+                            <!-- Chariot piece -->
+                            <circle cx="140" cy="140" r="25" class="red-piece piece-circle"/>
+                            <text x="140" y="148" text-anchor="middle" font-size="24" class="red-text">俥</text>
+                        </svg>
+                        <div class="diagram-caption">The Chariot moves any distance in a straight line (orthogonally)</div>
+                    </div>
+                    <p><strong>Movement Rules:</strong></p>
+                    <ul>
+                        <li>Moves <span class="highlight">any number of spaces</span> in a straight line</li>
+                        <li>Can move <span class="highlight">horizontally or vertically</span> (not diagonally)</li>
+                        <li>Cannot jump over pieces</li>
+                        <li>Can cross the River freely</li>
+                    </ul>
+                    <p><strong>Strategy Tip:</strong> The Chariot is equivalent to the Rook in Western Chess and is your strongest piece. Develop your Chariots early and control open files!</p>
+                `
+            },
+            // Lesson 7: Cannons
+            {
+                title: "The Cannons",
+                content: `
+                    <h3>The Cannons (炮/砲)</h3>
+                    <p>Each side has <span class="highlight">two Cannons</span>. This is a <span class="highlight">unique piece</span> not found in Western Chess!</p>
+                    <p>Red's Cannons are <span class="highlight">炮 (Pào)</span> and Black's are <span class="highlight">砲 (Pào)</span>.</p>
+                    <div class="diagram-container">
+                        <svg viewBox="0 0 360 200" width="360" height="200">
+                            <!-- Board section -->
+                            <rect x="20" y="20" width="320" height="160" fill="#f5deb3" rx="5"/>
+
+                            <!-- Grid lines -->
+                            <line x1="40" y1="60" x2="320" y2="60" stroke="#c4a35a" stroke-width="1.5"/>
+                            <line x1="40" y1="100" x2="320" y2="100" stroke="#c4a35a" stroke-width="1.5"/>
+                            <line x1="40" y1="140" x2="320" y2="140" stroke="#c4a35a" stroke-width="1.5"/>
+                            ${[...Array(8)].map((_, i) => `<line x1="${60 + i * 40}" y1="60" x2="${60 + i * 40}" y2="140" stroke="#c4a35a" stroke-width="1.5"/>`).join('')}
+
+                            <!-- Movement arrow (no capture) -->
+                            <line x1="100" y1="100" x2="180" y2="100" stroke="#4caf50" stroke-width="3" stroke-dasharray="8,4"/>
+
+                            <!-- Screen piece (any piece to jump over) -->
+                            <circle cx="220" cy="100" r="18" fill="#ddd" stroke="#999" stroke-width="2"/>
+                            <text x="220" y="105" text-anchor="middle" font-size="12" fill="#666">screen</text>
+
+                            <!-- Capture arrow -->
+                            <line x1="180" y1="100" x2="280" y2="100" stroke="#f44336" stroke-width="3"/>
+                            <polygon points="290,100 275,93 275,107" fill="#f44336"/>
+
+                            <!-- Target piece -->
+                            <circle cx="300" cy="100" r="18" class="black-piece piece-circle"/>
+                            <text x="300" y="106" text-anchor="middle" font-size="16" class="black-text">馬</text>
+
+                            <!-- Cannon piece -->
+                            <circle cx="60" cy="100" r="22" class="red-piece piece-circle"/>
+                            <text x="60" y="107" text-anchor="middle" font-size="20" class="red-text">炮</text>
+
+                            <!-- Labels -->
+                            <text x="140" y="85" text-anchor="middle" fill="#4caf50" font-size="11">Move (no jump)</text>
+                            <text x="250" y="130" text-anchor="middle" fill="#f44336" font-size="11">Capture (must jump)</text>
+                        </svg>
+                        <div class="diagram-caption">The Cannon moves like a Chariot but must jump over exactly one piece to capture</div>
+                    </div>
+                    <p><strong>Movement Rules:</strong></p>
+                    <ul>
+                        <li><strong>Moving:</strong> Same as Chariot - any distance orthogonally, <span class="highlight">cannot jump</span></li>
+                        <li><strong>Capturing:</strong> Must jump over <span class="highlight">exactly one piece</span> (called a "screen" or 炮架) to capture an enemy piece beyond it</li>
+                        <li>The screen piece can be friendly or enemy</li>
+                        <li>Can cross the River freely</li>
+                    </ul>
+                    <p><strong>Strategy Tip:</strong> Cannons are powerful in the opening and midgame when there are many pieces to use as screens. They become weaker in the endgame!</p>
+                `
+            },
+            // Lesson 8: Soldiers
+            {
+                title: "The Soldiers",
+                content: `
+                    <h3>The Soldiers (兵/卒)</h3>
+                    <p>Each side has <span class="highlight">five Soldiers</span>. They are similar to Pawns in Western Chess.</p>
+                    <p>Red's Soldiers are <span class="highlight">兵 (Bīng)</span> and Black's are <span class="highlight">卒 (Zú)</span>.</p>
+                    <div class="diagram-container">
+                        <svg viewBox="0 0 340 240" width="340" height="240">
+                            <!-- Board section -->
+                            <rect x="20" y="20" width="300" height="200" fill="#f5deb3" rx="5"/>
+
+                            <!-- Grid lines -->
+                            ${[...Array(4)].map((_, i) => `<line x1="40" y1="${60 + i * 50}" x2="300" y2="${60 + i * 50}" stroke="#c4a35a" stroke-width="1.5"/>`).join('')}
+                            ${[...Array(6)].map((_, i) => `<line x1="${60 + i * 50}" y1="60" x2="${60 + i * 50}" y2="210" stroke="#c4a35a" stroke-width="1.5"/>`).join('')}
+
+                            <!-- River -->
+                            <rect x="40" y="108" width="260" height="24" fill="rgba(100, 149, 237, 0.2)"/>
+                            <text x="170" y="124" text-anchor="middle" fill="#4a7c59" font-size="12">~ River ~</text>
+
+                            <!-- BEFORE crossing - only forward -->
+                            <circle cx="110" cy="160" r="20" class="red-piece piece-circle"/>
+                            <text x="110" y="167" text-anchor="middle" font-size="18" class="red-text">兵</text>
+                            <circle cx="110" cy="110" r="10" class="move-indicator"/>
+                            <text x="110" y="195" text-anchor="middle" fill="#666" font-size="10">Before river:</text>
+                            <text x="110" y="208" text-anchor="middle" fill="#666" font-size="10">forward only</text>
+
+                            <!-- AFTER crossing - forward and sideways -->
+                            <circle cx="235" cy="85" r="20" class="red-piece piece-circle"/>
+                            <text x="235" y="92" text-anchor="middle" font-size="18" class="red-text">兵</text>
+                            <circle cx="235" cy="60" r="10" class="move-indicator"/>
+                            <circle cx="210" cy="85" r="10" class="move-indicator"/>
+                            <circle cx="260" cy="85" r="10" class="move-indicator"/>
+                            <text x="235" y="45" text-anchor="middle" fill="#666" font-size="10">After river: forward + sideways</text>
+                        </svg>
+                        <div class="diagram-caption">Soldiers gain sideways movement after crossing the river</div>
+                    </div>
+                    <p><strong>Movement Rules:</strong></p>
+                    <ul>
+                        <li><strong>Before crossing the River:</strong> Can only move <span class="highlight">one space forward</span></li>
+                        <li><strong>After crossing the River:</strong> Can move <span class="highlight">one space forward OR sideways</span></li>
+                        <li><span class="highlight">Never moves backward</span></li>
+                        <li><span class="highlight">No promotion</span> - unlike Western Chess Pawns</li>
+                        <li>Captures the same way it moves (not diagonally like Pawns)</li>
+                    </ul>
+                    <p><strong>Strategy Tip:</strong> Advance your Soldiers across the River to increase their mobility and attacking power!</p>
+                `
+            },
+            // Lesson 9: Rules and Tips
+            {
+                title: "Rules & Strategy",
+                content: `
+                    <h3>Important Rules & Basic Strategy</h3>
+                    <p>Congratulations on learning all the pieces! Here are some final rules and tips to get you started.</p>
+
+                    <p><strong>Winning the Game:</strong></p>
+                    <ul>
+                        <li><span class="highlight">Checkmate</span> - Put the enemy General in check with no escape</li>
+                        <li><span class="highlight">Stalemate</span> - Unlike Western Chess, stalemate is a <strong>loss</strong> for the player who cannot move!</li>
+                    </ul>
+
+                    <p><strong>Special Rules:</strong></p>
+                    <ul>
+                        <li><strong>Flying General:</strong> Generals cannot face each other on an open file</li>
+                        <li><strong>Perpetual Check:</strong> You cannot give unlimited consecutive checks - this is usually a draw or loss</li>
+                        <li><strong>Perpetual Chase:</strong> Repeatedly chasing a piece is also restricted</li>
+                    </ul>
+
+                    <div class="diagram-container">
+                        <svg viewBox="0 0 400 200" width="400" height="200">
+                            <rect x="20" y="20" width="360" height="160" fill="#f5deb3" rx="5"/>
+
+                            <!-- Simplified board lines -->
+                            <line x1="200" y1="40" x2="200" y2="160" stroke="#c4a35a" stroke-width="1.5"/>
+                            <line x1="40" y1="100" x2="360" y2="100" stroke="#c4a35a" stroke-width="1.5"/>
+
+                            <!-- Red General -->
+                            <circle cx="200" cy="150" r="22" class="red-piece piece-circle"/>
+                            <text x="200" y="157" text-anchor="middle" font-size="20" class="red-text">帥</text>
+
+                            <!-- Black General -->
+                            <circle cx="200" cy="50" r="22" class="black-piece piece-circle"/>
+                            <text x="200" y="57" text-anchor="middle" font-size="20" class="black-text">將</text>
+
+                            <!-- X mark -->
+                            <line x1="185" y1="85" x2="215" y2="115" stroke="#f44336" stroke-width="4"/>
+                            <line x1="215" y1="85" x2="185" y2="115" stroke="#f44336" stroke-width="4"/>
+
+                            <text x="290" y="100" text-anchor="middle" fill="#f44336" font-size="12">Flying General</text>
+                            <text x="290" y="115" text-anchor="middle" fill="#f44336" font-size="12">= ILLEGAL!</text>
+                        </svg>
+                        <div class="diagram-caption">The Flying General rule - Generals cannot face each other directly</div>
+                    </div>
+
+                    <p><strong>Opening Principles:</strong></p>
+                    <ul>
+                        <li>Develop your <span class="highlight">Chariots early</span> - they're your strongest pieces</li>
+                        <li>Control the <span class="highlight">center files</span></li>
+                        <li>Connect your Chariots on the back rank</li>
+                        <li>Advance Soldiers to cross the River</li>
+                        <li>Use Cannons actively while there are many pieces</li>
+                    </ul>
+
+                    <p><strong>You're ready to play!</strong> The best way to improve is practice. Try playing online or with friends, and refer back to this tutorial whenever needed. Good luck! 祝你好运!</p>
+                `
+            }
+        ];
+
+        let currentLesson = 0;
+
+        function renderLesson(lessonIndex) {
+            const lesson = lessons[lessonIndex];
+            const chatMessages = document.getElementById('chatMessages');
+
+            chatMessages.innerHTML = `
+                <div class="message bot-message">
+                    <div class="bot-avatar">棋</div>
+                    <div class="bot-content">
+                        ${lesson.content}
+                    </div>
+                </div>
+            `;
+
+            // Update navigation
+            document.querySelectorAll('.lesson-btn').forEach((btn, i) => {
+                btn.classList.toggle('active', i === lessonIndex);
+            });
+
+            // Update progress
+            const progress = ((lessonIndex + 1) / lessons.length) * 100;
+            document.getElementById('progressFill').style.width = `${progress}%`;
+            document.getElementById('progressText').textContent = `Lesson ${lessonIndex + 1} of ${lessons.length}`;
+
+            // Update continue button
+            const continueBtn = document.getElementById('continueBtn');
+            if (lessonIndex >= lessons.length - 1) {
+                continueBtn.textContent = 'Start Over';
+            } else {
+                continueBtn.textContent = 'Continue to Next Lesson';
+            }
+
+            // Scroll to top of chat
+            chatMessages.scrollTop = 0;
+        }
+
+        // Event listeners
+        document.getElementById('lessonNav').addEventListener('click', (e) => {
+            if (e.target.classList.contains('lesson-btn')) {
+                currentLesson = parseInt(e.target.dataset.lesson);
+                renderLesson(currentLesson);
+            }
+        });
+
+        document.getElementById('continueBtn').addEventListener('click', () => {
+            if (currentLesson >= lessons.length - 1) {
+                currentLesson = 0;
+            } else {
+                currentLesson++;
+            }
+            renderLesson(currentLesson);
+        });
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' && currentLesson < lessons.length - 1) {
+                currentLesson++;
+                renderLesson(currentLesson);
+            } else if (e.key === 'ArrowLeft' && currentLesson > 0) {
+                currentLesson--;
+                renderLesson(currentLesson);
+            }
+        });
+
+        // Initialize
+        renderLesson(0);
+    </script>
+</body>
+</html>
