@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>James Smith - Product Leader</title>
+    <title>姜太公 | Jiang Tai Gong - Premium Taiwan Hot Sauce</title>
     <style>
         * {
             margin: 0;
@@ -11,108 +11,227 @@
             box-sizing: border-box;
         }
 
+        :root {
+            --primary-red: #DC2626;
+            --dark-red: #991B1B;
+            --light-red: #FEE2E2;
+            --orange: #F97316;
+            --dark-gray: #1F2937;
+            --light-gray: #F3F4F6;
+            --white: #FFFFFF;
+            --text-dark: #111827;
+            --text-light: #6B7280;
+        }
+
         html {
             scroll-behavior: smooth;
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background: #fafafa;
-            color: #1a1a1a;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Microsoft JhengHei', 'PingFang TC', 'Noto Sans TC', sans-serif;
+            background: var(--white);
+            color: var(--text-dark);
             line-height: 1.6;
             overflow-x: hidden;
         }
 
-        .container {
-            max-width: 1200px;
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.08);
+            z-index: 1000;
+            padding: 1.2rem 0;
+        }
+
+        .nav-content {
+            max-width: 1400px;
             margin: 0 auto;
-            background: #ffffff;
-            box-shadow: 0 0 60px rgba(0,0,0,0.05);
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--primary-red);
+            text-decoration: none;
+            letter-spacing: -0.5px;
+        }
+
+        .logo-zh {
+            font-size: 2rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--text-dark);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            font-size: 0.95rem;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-red);
+        }
+
+        .lang-switch {
+            background: var(--light-gray);
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+            font-size: 0.9rem;
+        }
+
+        .lang-switch:hover {
+            background: var(--primary-red);
+            color: white;
+        }
+
+        .cart-btn {
+            background: var(--primary-red);
+            color: white;
+            border: none;
+            padding: 0.7rem 1.5rem;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s;
+            font-size: 0.95rem;
+        }
+
+        .cart-btn:hover {
+            background: var(--dark-red);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(220, 38, 38, 0.3);
+        }
+
+        .cart-count {
+            background: white;
+            color: var(--primary-red);
+            padding: 0.2rem 0.6rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 700;
         }
 
         /* Hero Section */
-        header {
-            background: #1a1a1a;
+        .hero {
+            margin-top: 80px;
+            background: linear-gradient(135deg, #DC2626 0%, #F97316 100%);
             color: white;
             padding: 8rem 2rem 6rem;
             text-align: center;
             position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><path d="M50 10 L60 30 L80 30 L65 45 L70 65 L50 50 L30 65 L35 45 L20 30 L40 30 Z" fill="rgba(255,255,255,0.03)"/></svg>');
+            opacity: 0.4;
         }
 
         .hero-content {
+            max-width: 900px;
+            margin: 0 auto;
             position: relative;
             z-index: 1;
         }
 
-        header h1 {
-            font-size: 4.5rem;
+        .hero h1 {
+            font-size: 5rem;
             margin-bottom: 1rem;
-            font-weight: 700;
+            font-weight: 900;
             letter-spacing: -2px;
-            animation: fadeInUp 1s ease-out;
+            animation: fadeInUp 0.8s ease-out;
         }
 
-        header .tagline {
-            font-size: 1.5rem;
-            opacity: 0.9;
-            margin-bottom: 0.5rem;
-            font-weight: 400;
-            animation: fadeInUp 1s ease-out 0.2s both;
+        .hero .subtitle {
+            font-size: 1.8rem;
+            opacity: 0.95;
+            margin-bottom: 1rem;
+            font-weight: 500;
+            animation: fadeInUp 0.8s ease-out 0.2s both;
         }
 
-        header .subtitle {
-            font-size: 1.1rem;
-            opacity: 0.7;
+        .hero .tagline {
+            font-size: 1.2rem;
+            opacity: 0.85;
+            margin-bottom: 2.5rem;
             font-weight: 300;
-            animation: fadeInUp 1s ease-out 0.4s both;
+            animation: fadeInUp 0.8s ease-out 0.4s both;
         }
 
         .cta-buttons {
-            margin-top: 2.5rem;
             display: flex;
-            gap: 1rem;
+            gap: 1.5rem;
             justify-content: center;
             flex-wrap: wrap;
-            animation: fadeInUp 1s ease-out 0.6s both;
+            animation: fadeInUp 0.8s ease-out 0.6s both;
         }
 
         .btn {
-            padding: 0.85rem 1.8rem;
-            border-radius: 4px;
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
             text-decoration: none;
-            font-weight: 500;
-            transition: all 0.2s ease;
-            display: inline-block;
-            font-size: 0.95rem;
-            letter-spacing: 0.3px;
+            font-weight: 600;
+            transition: all 0.3s;
+            font-size: 1.1rem;
+            border: 2px solid white;
+            cursor: pointer;
         }
 
         .btn-primary {
             background: white;
-            color: #1a1a1a;
-            border: 1px solid white;
+            color: var(--primary-red);
         }
 
         .btn-primary:hover {
             background: transparent;
             color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
         }
 
         .btn-secondary {
             background: transparent;
             color: white;
-            border: 1px solid rgba(255,255,255,0.3);
         }
 
         .btn-secondary:hover {
-            border-color: white;
-            background: rgba(255,255,255,0.05);
+            background: white;
+            color: var(--primary-red);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
         }
 
         @keyframes fadeInUp {
             from {
                 opacity: 0;
-                transform: translateY(30px);
+                transform: translateY(40px);
             }
             to {
                 opacity: 1;
@@ -120,35 +239,224 @@
             }
         }
 
-        /* Stats Section */
-        .stats {
-            background: #f5f5f5;
-            padding: 3.5rem 2rem;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 3rem;
+        /* Products Section */
+        .products {
+            padding: 6rem 2rem;
+            background: var(--light-gray);
+        }
+
+        .section-header {
             text-align: center;
-            border-bottom: 1px solid #e5e5e5;
+            max-width: 800px;
+            margin: 0 auto 4rem;
         }
 
-        .stat-item {
-            animation: fadeIn 1s ease-out;
+        .section-header h2 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            font-weight: 800;
+            color: var(--text-dark);
+            letter-spacing: -1px;
         }
 
-        .stat-number {
-            font-size: 2.8rem;
+        .section-header p {
+            font-size: 1.2rem;
+            color: var(--text-light);
+        }
+
+        .products-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(220, 38, 38, 0.2);
+        }
+
+        .product-image {
+            height: 280px;
+            background: linear-gradient(135deg, var(--primary-red), var(--orange));
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-image::before {
+            content: '🌶️';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 6rem;
+            opacity: 0.3;
+        }
+
+        .spice-level {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 0.85rem;
+            color: var(--primary-red);
+        }
+
+        .product-info {
+            padding: 2rem;
+        }
+
+        .product-name {
+            font-size: 1.5rem;
             font-weight: 700;
             margin-bottom: 0.5rem;
-            display: block;
-            color: #1a1a1a;
+            color: var(--text-dark);
         }
 
-        .stat-label {
-            font-size: 0.9rem;
-            color: #666;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
+        .product-name-en {
+            font-size: 1rem;
+            color: var(--text-light);
+            margin-bottom: 1rem;
             font-weight: 500;
+        }
+
+        .product-description {
+            color: var(--text-light);
+            margin-bottom: 1.5rem;
+            line-height: 1.7;
+            font-size: 0.95rem;
+        }
+
+        .product-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .price {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--primary-red);
+        }
+
+        .add-to-cart {
+            background: var(--primary-red);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.8rem;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.95rem;
+        }
+
+        .add-to-cart:hover {
+            background: var(--dark-red);
+            transform: scale(1.05);
+        }
+
+        .add-to-cart:active {
+            transform: scale(0.98);
+        }
+
+        /* About Section */
+        .about {
+            padding: 6rem 2rem;
+            background: white;
+        }
+
+        .about-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5rem;
+            align-items: center;
+        }
+
+        .about-text h2 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            font-weight: 800;
+            color: var(--text-dark);
+            letter-spacing: -1px;
+        }
+
+        .about-text p {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            line-height: 1.9;
+            margin-bottom: 1.5rem;
+        }
+
+        .about-image {
+            height: 500px;
+            background: linear-gradient(135deg, var(--primary-red), var(--orange));
+            border-radius: 20px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(220, 38, 38, 0.3);
+        }
+
+        .about-image::before {
+            content: '🌶️🔥';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 8rem;
+            opacity: 0.2;
+        }
+
+        /* Cart Modal */
+        .cart-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 2000;
+            animation: fadeIn 0.3s;
+        }
+
+        .cart-modal.active {
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .cart-content {
+            background: white;
+            width: 100%;
+            max-width: 500px;
+            height: 100%;
+            padding: 2rem;
+            overflow-y: auto;
+            animation: slideInRight 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        @keyframes slideInRight {
+            from {
+                transform: translateX(100%);
+            }
+            to {
+                transform: translateX(0);
+            }
         }
 
         @keyframes fadeIn {
@@ -156,658 +464,541 @@
             to { opacity: 1; }
         }
 
-        /* Content Sections */
-        .content {
-            padding: 5rem 2rem;
-            max-width: 1000px;
-            margin: 0 auto;
-        }
-
-        section {
-            margin-bottom: 6rem;
-            opacity: 0;
-            animation: fadeInUp 0.8s ease-out forwards;
-        }
-
-        section:nth-child(1) { animation-delay: 0.1s; }
-        section:nth-child(2) { animation-delay: 0.2s; }
-        section:nth-child(3) { animation-delay: 0.3s; }
-        section:nth-child(4) { animation-delay: 0.4s; }
-        section:nth-child(5) { animation-delay: 0.5s; }
-
-        h2 {
-            font-size: 2.5rem;
-            color: #1a1a1a;
-            margin-bottom: 2.5rem;
-            font-weight: 700;
-            letter-spacing: -1px;
-        }
-
-        /* About Section */
-        .about {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 2rem;
-        }
-
-        .about p {
-            font-size: 1.1rem;
-            color: #4a4a4a;
-            line-height: 1.8;
-            margin-bottom: 1.5rem;
-        }
-
-        .highlight {
-            background: #f9f9f9;
-            padding: 2rem;
-            border-radius: 4px;
-            border-left: 3px solid #1a1a1a;
-            margin-top: 2rem;
-        }
-
-        .highlight p {
-            font-size: 1.2rem;
-            font-style: italic;
-            color: #1a1a1a;
-            margin: 0;
-            font-weight: 400;
-        }
-
-        /* Skills Section */
-        .skills-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
-            margin-top: 2rem;
-        }
-
-        .skill-category {
-            background: #fafafa;
-            padding: 2rem;
-            border-radius: 4px;
-            border: 1px solid #e5e5e5;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-        }
-
-        .skill-category:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-            border-color: #d0d0d0;
-        }
-
-        .skill-category h3 {
-            font-size: 1.2rem;
-            color: #1a1a1a;
-            margin-bottom: 1.5rem;
-            display: flex;
-            align-items: center;
-            gap: 0.6rem;
-            font-weight: 600;
-        }
-
-        .skill-icon {
-            font-size: 1.4rem;
-        }
-
-        .skill-item {
-            margin-bottom: 1.2rem;
-        }
-
-        .skill-name {
+        .cart-header {
             display: flex;
             justify-content: space-between;
-            margin-bottom: 0.6rem;
-            font-weight: 500;
-            color: #4a4a4a;
-            font-size: 0.95rem;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--light-gray);
         }
 
-        .skill-bar {
-            height: 6px;
-            background: #e5e5e5;
-            border-radius: 3px;
-            overflow: hidden;
+        .cart-header h2 {
+            font-size: 2rem;
+            font-weight: 800;
         }
 
-        .skill-progress {
-            height: 100%;
-            background: #1a1a1a;
-            border-radius: 3px;
-            transition: width 1s ease-out;
-        }
-
-        /* Experience Section */
-        .timeline {
-            position: relative;
-            padding-left: 2.5rem;
-        }
-
-        .timeline::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 0;
-            bottom: 0;
-            width: 2px;
-            background: #e5e5e5;
-        }
-
-        .work-item {
-            margin-bottom: 3rem;
-            position: relative;
-            background: #fafafa;
-            padding: 2rem;
-            border-radius: 4px;
-            border: 1px solid #e5e5e5;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-        }
-
-        .work-item:hover {
-            transform: translateX(5px);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
-            border-color: #d0d0d0;
-        }
-
-        .work-item::before {
-            content: '';
-            position: absolute;
-            left: -2.9rem;
-            top: 2rem;
-            width: 11px;
-            height: 11px;
-            background: #1a1a1a;
-            border-radius: 50%;
-            border: 3px solid white;
-            box-shadow: 0 0 0 1px #e5e5e5;
-        }
-
-        .work-item h3 {
-            font-size: 1.4rem;
-            color: #1a1a1a;
-            margin-bottom: 0.5rem;
-            font-weight: 600;
-        }
-
-        .work-item .company {
-            color: #1a1a1a;
-            font-weight: 500;
-            font-size: 1.1rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .work-item .date {
-            color: #999;
-            font-size: 0.9rem;
-            margin-bottom: 1rem;
-            display: inline-block;
-            background: white;
-            padding: 0.3rem 0.8rem;
-            border-radius: 3px;
-            border: 1px solid #e5e5e5;
-            font-weight: 500;
-        }
-
-        .work-item p {
-            color: #4a4a4a;
-            line-height: 1.7;
-        }
-
-        .work-item ul {
-            margin-top: 1rem;
-            padding-left: 1.5rem;
-            color: #4a4a4a;
-        }
-
-        .work-item li {
-            margin-bottom: 0.5rem;
-            line-height: 1.6;
-        }
-
-        /* Featured Work */
-        .featured-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-top: 2rem;
-        }
-
-        .featured-card {
-            background: #1a1a1a;
-            padding: 2.5rem;
-            border-radius: 4px;
-            color: white;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        .close-cart {
+            background: none;
+            border: none;
+            font-size: 2rem;
             cursor: pointer;
-            border: 1px solid #1a1a1a;
+            color: var(--text-light);
+            transition: color 0.3s;
         }
 
-        .featured-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+        .close-cart:hover {
+            color: var(--text-dark);
         }
 
-        .featured-card h3 {
-            font-size: 1.4rem;
-            margin-bottom: 1rem;
-            font-weight: 600;
-        }
-
-        .featured-card p {
-            opacity: 0.9;
-            line-height: 1.6;
-            margin-bottom: 1.2rem;
-            color: #e5e5e5;
-        }
-
-        .featured-tag {
-            display: inline-block;
-            background: rgba(255,255,255,0.1);
-            padding: 0.35rem 0.8rem;
-            border-radius: 3px;
-            font-size: 0.8rem;
-            margin-right: 0.5rem;
-            margin-top: 0.5rem;
-            border: 1px solid rgba(255,255,255,0.15);
-            font-weight: 500;
-        }
-
-        /* Hobbies Section */
-        .hobbies {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
-        }
-
-        .hobby-card {
-            background: #fafafa;
-            padding: 2rem;
-            border-radius: 4px;
-            border: 1px solid #e5e5e5;
-            transition: all 0.2s ease;
-            position: relative;
-        }
-
-        .hobby-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-            border-color: #d0d0d0;
-        }
-
-        .hobby-card h3 {
-            font-size: 1.3rem;
-            margin-bottom: 1rem;
-            color: #1a1a1a;
-            font-weight: 600;
-        }
-
-        .hobby-card p {
-            color: #4a4a4a;
-            line-height: 1.7;
-            font-size: 0.95rem;
-        }
-
-        /* Contact Section */
-        .contact {
-            text-align: center;
-            padding: 4rem 2rem;
-            background: #fafafa;
-            border-radius: 4px;
-            border: 1px solid #e5e5e5;
-        }
-
-        .contact h2 {
-            margin-bottom: 1rem;
-        }
-
-        .contact p {
-            font-size: 1.1rem;
-            color: #666;
+        .cart-items {
             margin-bottom: 2rem;
         }
 
-        .contact-links {
+        .cart-item {
             display: flex;
-            justify-content: center;
-            gap: 1rem;
-            margin-top: 2rem;
-            flex-wrap: wrap;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid var(--light-gray);
         }
 
-        .contact-links a {
-            display: inline-flex;
+        .cart-item-image {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--primary-red), var(--orange));
+            border-radius: 10px;
+            display: flex;
             align-items: center;
-            gap: 0.5rem;
-            color: white;
-            background: #1a1a1a;
-            padding: 0.85rem 1.8rem;
-            border-radius: 4px;
-            text-decoration: none;
-            font-weight: 500;
-            transition: all 0.2s ease;
-            font-size: 0.95rem;
-            border: 1px solid #1a1a1a;
+            justify-content: center;
+            font-size: 2rem;
         }
 
-        .contact-links a:hover {
-            background: #333;
-            border-color: #333;
-            transform: translateY(-1px);
+        .cart-item-info {
+            flex: 1;
+        }
+
+        .cart-item-name {
+            font-weight: 700;
+            margin-bottom: 0.3rem;
+            font-size: 1.1rem;
+        }
+
+        .cart-item-price {
+            color: var(--text-light);
+            margin-bottom: 0.5rem;
+        }
+
+        .cart-item-controls {
+            display: flex;
+            gap: 0.8rem;
+            align-items: center;
+        }
+
+        .qty-btn {
+            background: var(--light-gray);
+            border: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-weight: 700;
+            transition: all 0.3s;
+        }
+
+        .qty-btn:hover {
+            background: var(--primary-red);
+            color: white;
+        }
+
+        .remove-item {
+            background: none;
+            border: none;
+            color: var(--primary-red);
+            cursor: pointer;
+            margin-left: auto;
+            font-weight: 600;
+            padding: 0.3rem 0.8rem;
+            border-radius: 5px;
+            transition: all 0.3s;
+        }
+
+        .remove-item:hover {
+            background: var(--light-red);
+        }
+
+        .cart-total {
+            background: var(--light-gray);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin-bottom: 1.5rem;
+        }
+
+        .cart-total-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.8rem;
+            font-size: 1.1rem;
+        }
+
+        .cart-total-row.total {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--primary-red);
+            padding-top: 1rem;
+            border-top: 2px solid var(--white);
+        }
+
+        .checkout-btn {
+            width: 100%;
+            background: var(--primary-red);
+            color: white;
+            border: none;
+            padding: 1.2rem;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .checkout-btn:hover {
+            background: var(--dark-red);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(220, 38, 38, 0.3);
+        }
+
+        .empty-cart {
+            text-align: center;
+            padding: 3rem 0;
+            color: var(--text-light);
+        }
+
+        .empty-cart-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
         }
 
         /* Footer */
         footer {
-            text-align: center;
+            background: var(--dark-gray);
+            color: white;
             padding: 3rem 2rem;
-            background: #1a1a1a;
-            color: #999;
+            text-align: center;
         }
 
         footer p {
-            font-size: 0.9rem;
-            line-height: 1.6;
+            opacity: 0.8;
+            margin-bottom: 0.5rem;
         }
 
         /* Responsive */
         @media (max-width: 768px) {
-            header h1 {
+            .hero h1 {
                 font-size: 3rem;
             }
 
-            header .tagline {
-                font-size: 1.2rem;
+            .hero .subtitle {
+                font-size: 1.3rem;
             }
 
-            .stats {
-                grid-template-columns: repeat(2, 1fr);
+            .section-header h2 {
+                font-size: 2.5rem;
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
                 gap: 2rem;
             }
 
-            h2 {
-                font-size: 2rem;
+            .about-text h2 {
+                font-size: 2.5rem;
             }
 
-            .timeline {
-                padding-left: 2rem;
+            .nav-links {
+                gap: 1rem;
             }
 
-            .content {
-                padding: 3rem 1.5rem;
+            .nav-links a {
+                display: none;
+            }
+
+            .products-grid {
+                grid-template-columns: 1fr;
             }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <div class="hero-content">
-                <h1>James Smith</h1>
-                <p class="tagline">Product Leader & Innovation Architect</p>
-                <p class="subtitle">Building the future of AI-powered productivity | San Francisco, CA</p>
-                <div class="cta-buttons">
-                    <a href="#contact" class="btn btn-primary">Get In Touch</a>
-                    <a href="#work" class="btn btn-secondary">View My Work</a>
-                </div>
-            </div>
-        </header>
-
-        <div class="stats">
-            <div class="stat-item">
-                <span class="stat-number">500K+</span>
-                <span class="stat-label">Active Users</span>
-            </div>
-            <div class="stat-item">
-                <span class="stat-number">$12M</span>
-                <span class="stat-label">Revenue Generated</span>
-            </div>
-            <div class="stat-item">
-                <span class="stat-number">25+</span>
-                <span class="stat-label">Products Shipped</span>
-            </div>
-            <div class="stat-item">
-                <span class="stat-number">8</span>
-                <span class="stat-label">Years Experience</span>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-content">
+            <a href="#" class="logo">
+                <span class="logo-zh" data-en="Jiang Tai Gong" data-zh="姜太公">姜太公</span>
+            </a>
+            <div class="nav-links">
+                <a href="#products" data-en="Products" data-zh="產品">產品</a>
+                <a href="#about" data-en="About" data-zh="關於我們">關於我們</a>
+                <button class="lang-switch" onclick="toggleLanguage()">
+                    <span id="lang-text">EN</span>
+                </button>
+                <button class="cart-btn" onclick="toggleCart()">
+                    <span data-en="Cart" data-zh="購物車">購物車</span>
+                    <span class="cart-count" id="cart-count">0</span>
+                </button>
             </div>
         </div>
+    </nav>
 
-        <div class="content">
-            <section class="about" id="about">
-                <div>
-                    <h2>About Me</h2>
-                    <p>
-                        Hey! I'm James, a product leader based in San Francisco who's passionate about building products that genuinely improve people's lives.
-                        Currently, I'm leading product development for AI-powered automation tools at TechFlow AI, where we're reimagining how teams work together.
-                    </p>
-                    <p>
-                        I've spent the last 8 years at the intersection of technology and human experience, shipping products used by over half a million people worldwide.
-                        My approach combines data-driven decision making with deep empathy for users—because the best products don't just solve problems, they delight.
-                    </p>
-                    <p>
-                        Before diving into product management, I started as a software engineer, which gives me a unique perspective when working with technical teams.
-                        I speak fluent "engineer" and "designer," which helps me bridge gaps and build alignment around our vision.
-                    </p>
-                    <div class="highlight">
-                        <p>"The best products feel inevitable in hindsight. Getting there requires equal parts vision, execution, and the humility to learn from users."</p>
-                    </div>
-                </div>
-            </section>
-
-            <section class="skills" id="skills">
-                <h2>Expertise</h2>
-                <div class="skills-grid">
-                    <div class="skill-category">
-                        <h3><span class="skill-icon">🎯</span> Product Strategy</h3>
-                        <div class="skill-item">
-                            <div class="skill-name">
-                                <span>Product Vision & Roadmapping</span>
-                                <span>95%</span>
-                            </div>
-                            <div class="skill-bar">
-                                <div class="skill-progress" style="width: 95%"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <div class="skill-name">
-                                <span>User Research & Analytics</span>
-                                <span>90%</span>
-                            </div>
-                            <div class="skill-bar">
-                                <div class="skill-progress" style="width: 90%"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <div class="skill-name">
-                                <span>Go-to-Market Strategy</span>
-                                <span>85%</span>
-                            </div>
-                            <div class="skill-bar">
-                                <div class="skill-progress" style="width: 85%"></div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="skill-category">
-                        <h3><span class="skill-icon">💻</span> Technical Skills</h3>
-                        <div class="skill-item">
-                            <div class="skill-name">
-                                <span>AI/ML Product Development</span>
-                                <span>90%</span>
-                            </div>
-                            <div class="skill-bar">
-                                <div class="skill-progress" style="width: 90%"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <div class="skill-name">
-                                <span>APIs & System Design</span>
-                                <span>80%</span>
-                            </div>
-                            <div class="skill-bar">
-                                <div class="skill-progress" style="width: 80%"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <div class="skill-name">
-                                <span>SQL & Data Analysis</span>
-                                <span>85%</span>
-                            </div>
-                            <div class="skill-bar">
-                                <div class="skill-progress" style="width: 85%"></div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="skill-category">
-                        <h3><span class="skill-icon">👥</span> Leadership</h3>
-                        <div class="skill-item">
-                            <div class="skill-name">
-                                <span>Cross-Functional Collaboration</span>
-                                <span>95%</span>
-                            </div>
-                            <div class="skill-bar">
-                                <div class="skill-progress" style="width: 95%"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <div class="skill-name">
-                                <span>Stakeholder Management</span>
-                                <span>90%</span>
-                            </div>
-                            <div class="skill-bar">
-                                <div class="skill-progress" style="width: 90%"></div>
-                            </div>
-                        </div>
-                        <div class="skill-item">
-                            <div class="skill-name">
-                                <span>Agile & Scrum</span>
-                                <span>88%</span>
-                            </div>
-                            <div class="skill-bar">
-                                <div class="skill-progress" style="width: 88%"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <section class="work" id="work">
-                <h2>Experience</h2>
-                <div class="timeline">
-                    <div class="work-item">
-                        <h3>Senior Product Manager</h3>
-                        <div class="company">TechFlow AI</div>
-                        <span class="date">2022 - Present</span>
-                        <p>Leading product strategy for AI-powered workflow automation platform serving 500K+ users across 120 countries.</p>
-                        <ul>
-                            <li>Shipped AI assistant feature that increased user productivity by 40%, generating $8M in ARR</li>
-                            <li>Led redesign of core UX that improved NPS from 42 to 68 in 6 months</li>
-                            <li>Built and scaled product team from 3 to 12 people across engineering, design, and analytics</li>
-                            <li>Established data-driven product development framework adopted company-wide</li>
-                        </ul>
-                    </div>
-                    <div class="work-item">
-                        <h3>Product Manager</h3>
-                        <div class="company">DataCloud Solutions</div>
-                        <span class="date">2019 - 2022</span>
-                        <p>Managed cloud infrastructure products and developer tools, collaborating with enterprise customers including Fortune 500 companies.</p>
-                        <ul>
-                            <li>Launched API platform that grew to 50K developers in first year</li>
-                            <li>Reduced infrastructure costs by 35% while improving performance metrics</li>
-                            <li>Partnered with sales to close $4M in enterprise contracts</li>
-                        </ul>
-                    </div>
-                    <div class="work-item">
-                        <h3>Associate Product Manager</h3>
-                        <div class="company">StartupLabs (YC W19)</div>
-                        <span class="date">2018 - 2019</span>
-                        <p>First PM hire at early-stage Y Combinator startup. Helped grow from beta to 10K users and Series A funding.</p>
-                        <ul>
-                            <li>Defined product vision and roadmap from 0 to 1</li>
-                            <li>Conducted 100+ user interviews to validate product-market fit</li>
-                            <li>Shipped MVP in 3 months that led to Series A fundraise</li>
-                        </ul>
-                    </div>
-                </div>
-            </section>
-
-            <section class="featured" id="featured">
-                <h2>Featured Work</h2>
-                <div class="featured-grid">
-                    <div class="featured-card">
-                        <h3>AI Writing Assistant</h3>
-                        <p>Architected and launched an AI-powered writing tool that helps teams collaborate 3x faster. Featured in TechCrunch and Product Hunt #1 Product of the Day.</p>
-                        <div>
-                            <span class="featured-tag">AI/ML</span>
-                            <span class="featured-tag">NLP</span>
-                            <span class="featured-tag">SaaS</span>
-                        </div>
-                    </div>
-                    <div class="featured-card">
-                        <h3>Developer API Platform</h3>
-                        <p>Built a comprehensive API platform from the ground up, now serving 50K+ developers with 99.99% uptime and industry-leading documentation.</p>
-                        <div>
-                            <span class="featured-tag">APIs</span>
-                            <span class="featured-tag">DevTools</span>
-                            <span class="featured-tag">Infrastructure</span>
-                        </div>
-                    </div>
-                    <div class="featured-card">
-                        <h3>Mobile App Redesign</h3>
-                        <p>Led complete mobile app overhaul that increased daily active users by 150% and improved App Store rating from 3.2 to 4.7 stars.</p>
-                        <div>
-                            <span class="featured-tag">Mobile</span>
-                            <span class="featured-tag">UX Design</span>
-                            <span class="featured-tag">iOS/Android</span>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <section class="interests" id="interests">
-                <h2>Beyond Work</h2>
-                <div class="hobbies">
-                    <div class="hobby-card">
-                        <h3>🎸 Music Production</h3>
-                        <p>I produce electronic music under the alias "Midnight Architect." My tracks have been featured on Spotify editorial playlists and I've performed at local SF venues. Always exploring new synthesis techniques and sound design.</p>
-                    </div>
-                    <div class="hobby-card">
-                        <h3>🏔️ Hiking & Backpacking</h3>
-                        <p>Completed the John Muir Trail in 2024 and exploring California's diverse landscapes. Recent favorite: watching sunrise from Mission Peak. Currently training for a Patagonia trek.</p>
-                    </div>
-                    <div class="hobby-card">
-                        <h3>📸 Photography</h3>
-                        <p>Street and landscape photographer shooting on Fujifilm X-T4. My work has been featured in local galleries and I occasionally shoot portraits for fellow founders. Love capturing the energy of SF's neighborhoods.</p>
-                    </div>
-                    <div class="hobby-card">
-                        <h3>☕ Coffee Roasting</h3>
-                        <p>Home coffee roasting enthusiast with a small setup in my apartment. Currently obsessed with Ethiopian Yirgacheffe and experimenting with different roast profiles. Always happy to geek out about coffee science.</p>
-                    </div>
-                    <div class="hobby-card">
-                        <h3>📚 Reading & Writing</h3>
-                        <p>Voracious reader of sci-fi, philosophy, and product literature. I write occasional essays about product thinking and technology on Medium, where I have 5K+ followers.</p>
-                    </div>
-                    <div class="hobby-card">
-                        <h3>🚴 Cycling</h3>
-                        <p>Road cycling through Bay Area routes on weekends. Completed the Marin Century last year and training for the Big Sur Coast ride. Nothing clears my head like a long ride along Highway 1.</p>
-                    </div>
-                </div>
-            </section>
-
-            <section class="contact" id="contact">
-                <h2>Let's Connect</h2>
-                <p>Always happy to chat about product, technology, or grab coffee in SF!</p>
-                <div class="contact-links">
-                    <a href="mailto:james@example.com">📧 Email</a>
-                    <a href="https://linkedin.com/in/jamessmith">💼 LinkedIn</a>
-                    <a href="https://twitter.com/jamessmith">🐦 Twitter</a>
-                    <a href="https://github.com/jamessmith">💻 GitHub</a>
-                </div>
-            </section>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1 data-en="Jiang Tai Gong" data-zh="姜太公">姜太公</h1>
+            <p class="subtitle" data-en="Authentic Taiwan Hot Sauce" data-zh="台灣正宗辣椒醬">台灣正宗辣椒醬</p>
+            <p class="tagline" data-en="Handcrafted with passion in Taiwan, delivering authentic heat and flavor" data-zh="台灣手工精心製作，帶給您道地的辣味與風味">台灣手工精心製作，帶給您道地的辣味與風味</p>
+            <div class="cta-buttons">
+                <a href="#products" class="btn btn-primary" data-en="Shop Now" data-zh="立即購買">立即購買</a>
+                <a href="#about" class="btn btn-secondary" data-en="Our Story" data-zh="我們的故事">我們的故事</a>
+            </div>
         </div>
+    </section>
 
-        <footer>
-            <p>&copy; 2026 James Smith. Designed with intention, built with passion.</p>
-            <p style="margin-top: 0.5rem; opacity: 0.7;">San Francisco, CA | Product Leader & Innovator</p>
-        </footer>
+    <!-- Products Section -->
+    <section class="products" id="products">
+        <div class="section-header">
+            <h2 data-en="Our Hot Sauces" data-zh="我們的辣椒醬">我們的辣椒醬</h2>
+            <p data-en="Each bottle is crafted with premium ingredients and generations of family recipes" data-zh="每一瓶都使用優質食材及世代相傳的家族配方精心製作">每一瓶都使用優質食材及世代相傳的家族配方精心製作</p>
+        </div>
+        <div class="products-grid" id="products-grid">
+            <!-- Products will be inserted here by JavaScript -->
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about" id="about">
+        <div class="about-content">
+            <div class="about-text">
+                <h2 data-en="Our Story" data-zh="我們的故事">我們的故事</h2>
+                <p data-en="Founded in Taiwan, Jiang Tai Gong represents three generations of hot sauce craftsmanship. What started as a family recipe has become a beloved brand across Taiwan and beyond." data-zh="姜太公創立於台灣，代表著三代辣椒醬製作工藝的傳承。從家族配方開始，如今已成為台灣及海外深受喜愛的品牌。">姜太公創立於台灣，代表著三代辣椒醬製作工藝的傳承。從家族配方開始，如今已成為台灣及海外深受喜愛的品牌。</p>
+                <p data-en="Every bottle is carefully prepared using traditional methods combined with modern quality standards. We source the finest chilies from local farmers and blend them with our secret family spices to create unforgettable flavors." data-zh="每一瓶醬料都採用傳統方法精心製作，並符合現代品質標準。我們向當地農民採購最優質的辣椒，並與我們的家族秘方香料混合，創造出令人難忘的風味。">每一瓶醬料都採用傳統方法精心製作，並符合現代品質標準。我們向當地農民採購最優質的辣椒，並與我們的家族秘方香料混合，創造出令人難忘的風味。</p>
+                <p data-en="From mild to extreme heat, we offer a sauce for every palate. All natural ingredients, no preservatives, just pure delicious heat." data-zh="從微辣到極辣，我們提供適合每個人口味的醬料。全天然食材，無防腐劑，只有純粹美味的辣味。">從微辣到極辣，我們提供適合每個人口味的醬料。全天然食材，無防腐劑，只有純粹美味的辣味。</p>
+            </div>
+            <div class="about-image"></div>
+        </div>
+    </section>
+
+    <!-- Cart Modal -->
+    <div class="cart-modal" id="cart-modal" onclick="closeCartOnBackdrop(event)">
+        <div class="cart-content" onclick="event.stopPropagation()">
+            <div class="cart-header">
+                <h2 data-en="Shopping Cart" data-zh="購物車">購物車</h2>
+                <button class="close-cart" onclick="toggleCart()">&times;</button>
+            </div>
+            <div class="cart-items" id="cart-items">
+                <!-- Cart items will be inserted here -->
+            </div>
+            <div class="cart-total" id="cart-total-section" style="display: none;">
+                <div class="cart-total-row">
+                    <span data-en="Subtotal" data-zh="小計">小計</span>
+                    <span id="cart-subtotal">NT$0</span>
+                </div>
+                <div class="cart-total-row">
+                    <span data-en="Shipping" data-zh="運費">運費</span>
+                    <span data-en="Free" data-zh="免運">免運</span>
+                </div>
+                <div class="cart-total-row total">
+                    <span data-en="Total" data-zh="總計">總計</span>
+                    <span id="cart-total">NT$0</span>
+                </div>
+            </div>
+            <button class="checkout-btn" id="checkout-btn" style="display: none;" data-en="Proceed to Checkout" data-zh="前往結帳">前往結帳</button>
+            <div class="empty-cart" id="empty-cart">
+                <div class="empty-cart-icon">🛒</div>
+                <p data-en="Your cart is empty" data-zh="您的購物車是空的">您的購物車是空的</p>
+                <p data-en="Add some delicious hot sauce!" data-zh="加入一些美味的辣椒醬吧！">加入一些美味的辣椒醬吧！</p>
+            </div>
+        </div>
     </div>
+
+    <!-- Footer -->
+    <footer>
+        <p data-en="© 2026 Jiang Tai Gong Hot Sauce. Handcrafted in Taiwan with love." data-zh="© 2026 姜太公辣椒醬。台灣用心手工製作。">© 2026 姜太公辣椒醬。台灣用心手工製作。</p>
+        <p data-en="Contact: info@jiangtaigong.tw | +886-2-xxxx-xxxx" data-zh="聯絡我們：info@jiangtaigong.tw | +886-2-xxxx-xxxx">聯絡我們：info@jiangtaigong.tw | +886-2-xxxx-xxxx</p>
+    </footer>
+
+    <script>
+        // Product data
+        const products = [
+            {
+                id: 1,
+                nameZh: '經典辣椒醬',
+                nameEn: 'Classic Chili Sauce',
+                descZh: '我們的招牌醬料，完美平衡辣度與風味。適合搭配各種料理，是每個廚房必備的醬料。',
+                descEn: 'Our signature sauce with perfect balance of heat and flavor. Versatile companion for any dish, a kitchen essential.',
+                price: 280,
+                spiceLevelZh: '🌶️ 中辣',
+                spiceLevelEn: '🌶️ Medium'
+            },
+            {
+                id: 2,
+                nameZh: '蒜香火焰醬',
+                nameEn: 'Garlic Fire Sauce',
+                descZh: '濃郁蒜香與辣椒的完美結合。微辣中帶著深層風味，特別適合燒烤與炒菜。',
+                descEn: 'Rich garlic meets fiery chili. Mild heat with deep flavor profile, perfect for grilling and stir-fry.',
+                price: 320,
+                spiceLevelZh: '🌶️🌶️ 辣',
+                spiceLevelEn: '🌶️🌶️ Hot'
+            },
+            {
+                id: 3,
+                nameZh: '薑汁熱辣醬',
+                nameEn: 'Ginger Heat Sauce',
+                descZh: '新鮮薑汁與辣椒的獨特組合，帶來溫暖而刺激的口感。非常適合海鮮料理與湯品。',
+                descEn: 'Fresh ginger and chili create warming sensation. Excellent with seafood and soups.',
+                price: 300,
+                spiceLevelZh: '🌶️🌶️ 辣',
+                spiceLevelEn: '🌶️🌶️ Hot'
+            },
+            {
+                id: 4,
+                nameZh: '川椒麻辣醬',
+                nameEn: 'Sichuan Peppercorn Sauce',
+                descZh: '正宗川味，結合花椒的麻與辣椒的辣。層次豐富，是麻辣愛好者的首選。',
+                descEn: 'Authentic Sichuan flavor with numbing peppercorn and fiery chili. Complex layers for spice enthusiasts.',
+                price: 350,
+                spiceLevelZh: '🌶️🌶️🌶️ 大辣',
+                spiceLevelEn: '🌶️🌶️🌶️ Very Hot'
+            },
+            {
+                id: 5,
+                nameZh: '甜辣醬',
+                nameEn: 'Sweet & Spicy Sauce',
+                descZh: '微辣帶甜，適合不太能吃辣的朋友。完美搭配春捲、炸雞與各式小吃。',
+                descEn: 'Mild heat with sweetness. Perfect for those who prefer gentle spice. Great with spring rolls and fried foods.',
+                price: 260,
+                spiceLevelZh: '🌶️ 微辣',
+                spiceLevelEn: '🌶️ Mild'
+            },
+            {
+                id: 6,
+                nameZh: '魔鬼椒極辣醬',
+                nameEn: 'Ghost Pepper Extreme',
+                descZh: '挑戰極限！使用魔鬼椒製作的終極辣醬。只推薦給真正的辣椒狂熱者。',
+                descEn: 'Ultimate challenge! Made with ghost peppers. Only for true chili enthusiasts who dare to test their limits.',
+                price: 420,
+                spiceLevelZh: '🌶️🌶️🌶️🌶️ 極辣',
+                spiceLevelEn: '🌶️🌶️🌶️🌶️ Extreme'
+            }
+        ];
+
+        // State
+        let currentLang = 'zh';
+        let cart = [];
+
+        // Initialize
+        function init() {
+            renderProducts();
+            updateLanguage();
+        }
+
+        // Render products
+        function renderProducts() {
+            const grid = document.getElementById('products-grid');
+            grid.innerHTML = products.map(product => `
+                <div class="product-card">
+                    <div class="product-image" style="background: linear-gradient(135deg, ${getProductColor(product.id)})">
+                        <div class="spice-level" data-en="${product.spiceLevelEn}" data-zh="${product.spiceLevelZh}">${currentLang === 'zh' ? product.spiceLevelZh : product.spiceLevelEn}</div>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name" data-en="${product.nameEn}" data-zh="${product.nameZh}">${currentLang === 'zh' ? product.nameZh : product.nameEn}</h3>
+                        <p class="product-name-en" style="display: ${currentLang === 'zh' ? 'block' : 'none'}">${product.nameEn}</p>
+                        <p class="product-description" data-en="${product.descEn}" data-zh="${product.descZh}">${currentLang === 'zh' ? product.descZh : product.descEn}</p>
+                        <div class="product-footer">
+                            <div class="price">NT$${product.price}</div>
+                            <button class="add-to-cart" onclick="addToCart(${product.id})" data-en="Add to Cart" data-zh="加入購物車">${currentLang === 'zh' ? '加入購物車' : 'Add to Cart'}</button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function getProductColor(id) {
+            const colors = [
+                '#DC2626, #F97316',
+                '#DC2626, #EA580C',
+                '#B91C1C, #DC2626',
+                '#991B1B, #DC2626',
+                '#F97316, #FB923C',
+                '#7F1D1D, #991B1B'
+            ];
+            return colors[id - 1];
+        }
+
+        // Toggle language
+        function toggleLanguage() {
+            currentLang = currentLang === 'zh' ? 'en' : 'zh';
+            document.getElementById('lang-text').textContent = currentLang === 'zh' ? 'EN' : '中文';
+            updateLanguage();
+            renderProducts();
+            renderCart();
+        }
+
+        function updateLanguage() {
+            document.querySelectorAll('[data-en]').forEach(element => {
+                if (!element.classList.contains('product-name-en')) {
+                    element.textContent = element.getAttribute(`data-${currentLang}`);
+                }
+            });
+            // Update product English names visibility
+            document.querySelectorAll('.product-name-en').forEach(el => {
+                el.style.display = currentLang === 'zh' ? 'block' : 'none';
+            });
+        }
+
+        // Cart functions
+        function addToCart(productId) {
+            const product = products.find(p => p.id === productId);
+            const existingItem = cart.find(item => item.id === productId);
+
+            if (existingItem) {
+                existingItem.quantity++;
+            } else {
+                cart.push({ ...product, quantity: 1 });
+            }
+
+            updateCart();
+            showNotification();
+        }
+
+        function removeFromCart(productId) {
+            cart = cart.filter(item => item.id !== productId);
+            updateCart();
+        }
+
+        function updateQuantity(productId, delta) {
+            const item = cart.find(item => item.id === productId);
+            if (item) {
+                item.quantity += delta;
+                if (item.quantity <= 0) {
+                    removeFromCart(productId);
+                } else {
+                    updateCart();
+                }
+            }
+        }
+
+        function updateCart() {
+            const count = cart.reduce((sum, item) => sum + item.quantity, 0);
+            document.getElementById('cart-count').textContent = count;
+            renderCart();
+        }
+
+        function renderCart() {
+            const cartItems = document.getElementById('cart-items');
+            const emptyCart = document.getElementById('empty-cart');
+            const totalSection = document.getElementById('cart-total-section');
+            const checkoutBtn = document.getElementById('checkout-btn');
+
+            if (cart.length === 0) {
+                emptyCart.style.display = 'block';
+                totalSection.style.display = 'none';
+                checkoutBtn.style.display = 'none';
+                cartItems.innerHTML = '';
+                return;
+            }
+
+            emptyCart.style.display = 'none';
+            totalSection.style.display = 'block';
+            checkoutBtn.style.display = 'block';
+
+            cartItems.innerHTML = cart.map(item => `
+                <div class="cart-item">
+                    <div class="cart-item-image">🌶️</div>
+                    <div class="cart-item-info">
+                        <div class="cart-item-name">${currentLang === 'zh' ? item.nameZh : item.nameEn}</div>
+                        <div class="cart-item-price">NT$${item.price}</div>
+                        <div class="cart-item-controls">
+                            <button class="qty-btn" onclick="updateQuantity(${item.id}, -1)">-</button>
+                            <span>${item.quantity}</span>
+                            <button class="qty-btn" onclick="updateQuantity(${item.id}, 1)">+</button>
+                            <button class="remove-item" onclick="removeFromCart(${item.id})" data-en="Remove" data-zh="移除">${currentLang === 'zh' ? '移除' : 'Remove'}</button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+
+            const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            document.getElementById('cart-subtotal').textContent = `NT$${subtotal}`;
+            document.getElementById('cart-total').textContent = `NT$${subtotal}`;
+
+            updateLanguage();
+        }
+
+        function toggleCart() {
+            const modal = document.getElementById('cart-modal');
+            modal.classList.toggle('active');
+        }
+
+        function closeCartOnBackdrop(event) {
+            if (event.target.id === 'cart-modal') {
+                toggleCart();
+            }
+        }
+
+        function showNotification() {
+            // Simple notification - could be enhanced
+            const btn = event.target;
+            const originalText = btn.textContent;
+            btn.textContent = currentLang === 'zh' ? '已加入！' : 'Added!';
+            btn.style.background = '#059669';
+            setTimeout(() => {
+                btn.textContent = originalText;
+                btn.style.background = '';
+            }, 1000);
+        }
+
+        // Initialize on load
+        init();
+    </script>
 </body>
 </html>
